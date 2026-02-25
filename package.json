@@ -7,11 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "prepare": "husky",
-    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
-    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
-    "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
-    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
+    "prepare": "husky"
   },
   "dependencies": {
     "@cfx-kit/wallet-avatar": "^0.0.5",
@@ -42,7 +38,6 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
-    "@opennextjs/cloudflare": "^1.12.0",
     "@types/node": "^24.10.0",
     "@types/react": "^19.2.2",
     "@types/string-format": "^2.0.3",
