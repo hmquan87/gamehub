@@ -3,7 +3,7 @@
 import { memo, useEffect, useState } from "react";
 import { ButtonBase, NoSsr, Stack } from "@mui/material";
 import { DateRange, DateRangeProps, Range } from "react-date-range";
-import * as locales from "date-fns/locale";
+import { enUS } from 'date-fns/locale'
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import Text from "./Text";
@@ -88,7 +88,7 @@ const RangeDate = (props: RangeDateProps) => {
         <Stack spacing={1}>
           <DateRange
             ranges={ranges}
-            locale={locales["en-US"]}
+            locale={enUS}
             onChange={onChangeRange}
             months={1}
             {...rest}
