@@ -1,0 +1,24 @@
+export const HOME_PATH = "/";
+export const GAMES_PATH = "/games";
+export const GAME_DETAIL_PATH = "/games/{slug}";
+export const GAME_DETAIL_REVIEWS_PATH = "/games/{slug}/reviews";
+export const GAME_DETAIL_QUESTS_PATH = "/games/{slug}/quests";
+export const QUESTS_PATH = "/quests";
+export const QUEST_DETAIL_PATH = "/quests/{slug}";
+export const BATTLE_PASS_PATH = "/battle-pass";
+export const LEADERBOARD_PATH = "/leaderboard";
+export const DASHBOARD_PATH = "/dashboard";
+export const CLAIMS_PATH = "/claims";
+export const LEARN_PATH = "/learn";
+export const PARTNERS_PATH = "/partners";
+export const PROFILE_PATH = "/profile";
+export const REFERRALS_PATH = "/referrals";
+export const CLASSIC_YIELD_PATH = "/classic-yield";
+export const NEWS_PATH = '/news';
+export const NEW_DETAIL_PATH = '/news/{slug}';
+
+export const WAITLIST_PATH = "/waitlist";
+export const AUTHOR_CONTENT_PATH = "/authors/{author}/content";
+export const AUTHOR_ACHIEVEMENTS_PATH = "/authors/{author}/achievements";
+export const AUTHOR_INVENTORY_PATH = "/authors/{author}/inventory";
+export const AUTHOR_FAVORITES_PATH = "/authors/{author}/favorites";

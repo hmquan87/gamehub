@@ -1,0 +1,208 @@
+html,
+body {
+  max-width: 100vw;
+}
+
+body {
+  font-family: var(--font-inter);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background: radial-gradient(circle at top, #111827 0%, #020617 50%, #01030a 100%);
+}
+
+
+button>.MuiTouchRipple-root {
+  margin-left: 0 !important;
+  margin-top: 0 !important;
+}
+
+
+a:not(.underline) {
+  text-decoration: none;
+}
+
+.light-shadow {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+.abs-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.swiper-navigation-icon {
+  color: #FFFFFF;
+}
+
+input:-internal-autofill-selected {
+  background-color: transparent !important;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0.2;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.2;
+  }
+}
+
+
+.loading span {
+  animation-name: blink;
+  animation-duration: 1.4s;
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+  
+}
+
+.loading span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.loading span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+
+.circle {
+  border-radius: 50%;
+}
+
+
+.loader {
+  animation: rotate 1s infinite;
+  height: 25px;
+  width: 25px;
+}
+
+.loader:before,
+.loader:after {
+  border-radius: 50%;
+  content: "";
+  display: block;
+  height: 10px;
+  width: 10px;
+}
+.loader:before {
+  animation: ball1 1s infinite;
+  background-color: var(--mui-palette-secondary-main);
+  box-shadow: 15px 0 0 var(--mui-palette-primary-main);
+  margin-bottom: 5px;
+}
+.loader:after {
+  animation: ball2 1s infinite;
+  background-color: var(--mui-palette-primary-main);
+  box-shadow: 15px 0 0 var(--mui-palette-secondary-main);
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg) scale(0.8) }
+  50% { transform: rotate(360deg) scale(1.2) }
+  100% { transform: rotate(720deg) scale(0.8) }
+}
+
+@keyframes ball1 {
+  0% {
+    box-shadow: 15px 0 0 var(--mui-palette-primary-main);
+  }
+  50% {
+    box-shadow: 0 0 0 var(--mui-palette-primary-main);
+    margin-bottom: 0;
+    transform: translate(7.5px, 7.5px);
+  }
+  100% {
+    box-shadow: 15px 0 0 var(--mui-palette-primary-main);
+    margin-bottom: 5px;
+  }
+}
+
+@keyframes ball2 {
+  0% {
+    box-shadow: 15px 0 0 var(--mui-palette-secondary-main);
+  }
+  50% {
+    box-shadow: 0 0 0 var(--mui-palette-secondary-main);
+    margin-top: -10px;
+    transform: translate(7.5px, 7.5px);
+  }
+  100% {
+    box-shadow: 15px 0 0 var(--mui-palette-secondary-main);
+    margin-top: 0;
+  }
+}
+
+
+.rdrCalendarWrapper {
+  background: var(--mui-palette-background-paper) !important;
+}
+
+.rdrDayActive .rdrDayNumber span {
+  color: var(--mui-palette-common-white)!important;;
+}
+
+.rdrDay > span.rdrDayNumber:first-child  span, .rdrDay .rdrDayInPreview + .rdrDayNumber span, .rdrDay .rdrDayEndPreview + .rdrDayNumber span {
+  color: #849095!important;
+}
+
+.rdrDayPassive .rdrDayNumber span {
+  color: var(--mui-palette-grey-300)!important;;
+
+}
+
+.rdrMonthAndYearPickers select {
+  color: var(--mui-palette-grey-400)!important;;
+}
+
+.rdrDateDisplayWrapper {
+  background: var(--mui-palette-background-default) !important;
+}
+
+.rdrDateInput {
+  background-color: var(--mui-palette-background-paper) !important;
+}
+
+.rdrDateInput input {
+  color: var(--mui-palette-grey-400)!important;;
+}
+
+
+/* width */
+.scrollbar ::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+/* width */
+.scrollbar ::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+/* Track */
+.scrollbar ::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 2px;
+}
+
+/* Handle */
+.scrollbar ::-webkit-scrollbar-thumb {
+  background: #7d90b2;
+  border-radius: 2px;
+}
+
+/* Handle on hover */
+.scrollbar ::-webkit-scrollbar-thumb:hover {
+  background: #7d90b2;
+  cursor: pointer;
+}
