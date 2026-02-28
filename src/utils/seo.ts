@@ -1,11 +1,11 @@
 import { DOMAIN } from "@/constant";
 
 const SEO_IMAGE = `${DOMAIN}/images/cover-seo.png`;
-export const CONTACT_EMAIL = "contact@gamebasis.xyz";
+export const CONTACT_EMAIL = "contact@game.xyz";
 
 const TITLE = {
-  template: "%s | GameBasis",
-  default: "GameBasis",
+  template: "%s | Game",
+  default: "Game",
 };
 
 export const GENERAL_CONFIG = {
@@ -20,7 +20,7 @@ export const OPEN_GRAPH_CONFIG = {
   images: [SEO_IMAGE],
   emails: [CONTACT_EMAIL],
   type: "website",
-  siteName: "GameBasis",
+  siteName: "Game",
 };
 
 export const TWITTER_CONFIG = {
@@ -28,8 +28,8 @@ export const TWITTER_CONFIG = {
   description: GENERAL_CONFIG.description,
   card: "summary_large_image",
   images: [SEO_IMAGE],
-  site: "@gamebasis",
-  creator: "@gamebasis",
+  site: "@game",
+  creator: "@game",
 };
 
 export const generateMetadata = (title: string, canonical: string) => {
@@ -50,4 +50,4 @@ export const generateMetadata = (title: string, canonical: string) => {
   };
 };
 
-export const KEYWORDS_CONFIG = ["nextjs", "webapp", "gamebasis"];
+export const KEYWORDS_CONFIG = ["nextjs", "webapp", "game"];

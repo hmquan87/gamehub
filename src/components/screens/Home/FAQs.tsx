@@ -107,9 +107,9 @@ const Item = (props: FAQItem) => {
 
 const DATA = [
   {
-    label: "What is GameBasis?",
+    label: "What is List Game?",
     value:
-      "GameBasis is a Play & Earn gaming platform on BNB Chain that combines fun mini-games with sustainable Classic Yield and Boosted Yield farming mechanics. Play games, complete quests, climb leaderboards, and earn tokens + NFTs.",
+      "List Game is a Play & Earn gaming platform on BNB Chain that combines fun mini-games with sustainable Classic Yield and Boosted Yield farming mechanics. Play games, complete quests, climb leaderboards, and earn tokens + NFTs.",
   },
   {
     label: "What is Classic Yield? How is it different from Boosted Yield?",
@@ -126,7 +126,7 @@ const DATA = [
       "Battle Pass is a seasonal premium pass. Buying it unlocks massive extra rewards from quests, leaderboard rankings, and special events throughout the season (usually 4-8 weeks).",
   },
   {
-    label: "How can I earn tokens in GameBasis?",
+    label: "How can I earn tokens in List Game?",
     value: `There are 4 main ways:<br/>• Play games and win matches<br/>• Complete Daily & Weekly Quests<br/>• Climb the Leaderboard rankings<br/>• Stake in Classic Yield / Boosted Yield vaults`,
   },
   {
@@ -145,7 +145,7 @@ const DATA = [
       "Yes! An ongoing Whitelist campaign is live. Join via the “Wishlist” section to secure early mint slots, discounted NFTs, and exclusive staking rewards.",
   },
   {
-    label: "Is GameBasis safe and legit?",
+    label: "Is List Game safe and legit?",
     value:
       "We prioritize security and transparency: audited contracts, locked liquidity, transparent on-chain dashboard, and gradual team/partner reveals. Always DYOR and only use the official website.",
   },

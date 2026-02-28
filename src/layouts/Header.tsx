@@ -20,15 +20,18 @@ const Header = (props: HeaderProps) => {
       zIndex={10}
       borderBottom="1px solid"
       borderColor="divider"
+      flex={1}
     >
       <Stack
-        component={Container}
+        // component={Container}
         direction="row"
+        width={'100%'}
         alignItems="center"
         justifyContent="space-between"
         height={HEADER_HEIGHT}
         minHeight={HEADER_HEIGHT}
-        maxWidth="lg"
+        // maxWidth="lg"
+        px={{ lg: 8, md: 6, sm: 4, xs: 2 }}
       >
         <Stack direction="row" alignItems="center" spacing={5.75}>
           <Logo />

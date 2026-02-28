@@ -4,10 +4,10 @@ export default {
     white: "#FFFFFF",
   },
   primary: {
-    main: "#BAFE27",
-    light: "#D1FF66",
-    dark: "#8BC51C",
-    darkChannel: "rgba(186, 254, 39, 0.15)",
+    main: "#0062ff",
+    light: "#93C5FD",
+    dark: "#1D4ED8",
+    darkChannel: "rgba(59, 131, 246, 0.15)",
     contrastText: "#000000",
   },
   secondary: {

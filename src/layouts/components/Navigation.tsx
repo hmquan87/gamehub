@@ -1,42 +1,39 @@
 "use client";
 
-import { Fragment, memo, useState } from "react";
-import {
-  ButtonBase,
-  Popover,
-  popoverClasses,
-  Stack,
-  StackProps,
-} from "@mui/material";
-import { Text } from "@/components/shared";
 import Link from "@/components/Link";
-import { usePathname } from "next/navigation";
-import ChevronIcon from "@/icons/ChevronIcon";
+import { Text } from "@/components/shared";
+import { HEADER_HEIGHT } from "@/constant";
+import { X_URL } from "@/constant/links";
 import {
   BATTLE_PASS_PATH,
   CLAIMS_PATH,
   CLASSIC_YIELD_PATH,
   DASHBOARD_PATH,
   GAMES_PATH,
-  HOME_PATH,
   LEADERBOARD_PATH,
-  LEARN_PATH,
   NEWS_PATH,
   QUESTS_PATH,
+  STAKING_PATH
 } from "@/constant/paths";
-import LeaderboardIcon from "@/icons/LeaderboardIcon";
-import { getTargetLink } from "@/utils";
-import GameIcon from "@/icons/GameIcon";
-import QuestIcon from "@/icons/QuestIcon";
+import AnalyticsIcon from "@/icons/AnalyticsIcon";
 import BattlePassIcon from "@/icons/BattlePassIcon";
+import ChevronIcon from "@/icons/ChevronIcon";
+import GameIcon from "@/icons/GameIcon";
+import LeaderboardIcon from "@/icons/LeaderboardIcon";
+import LearnIcon from "@/icons/LearnIcon";
 import MenuIcon from "@/icons/MenuIcon";
 import NewsIcon from "@/icons/NewsIcon";
-import AnalyticsIcon from "@/icons/AnalyticsIcon";
+import QuestIcon from "@/icons/QuestIcon";
 import StakeIcon from "@/icons/StakeIcon";
 import StakingVaultIcon from "@/icons/StakingVaultIcon";
-import { HEADER_HEIGHT } from "@/constant";
-import { X_URL } from "@/constant/links";
-import LearnIcon from "@/icons/LearnIcon";
+import { getTargetLink } from "@/utils";
+import {
+  ButtonBase,
+  Stack,
+  StackProps
+} from "@mui/material";
+import { usePathname } from "next/navigation";
+import { memo, useState } from "react";
 
 type NavigationProps = {
   onHide?: () => void;
@@ -311,13 +308,13 @@ const DATA = [
       {
         label: "Boosted Yield",
         description: "Higher rewards for active players",
-        href: "https://google.com.vn",
+        href: CLASSIC_YIELD_PATH,
         Icon: LeaderboardIcon,
       },
       {
         label: "Staking Vault",
         description: "Stake tokens/NFTs to earn rewards",
-        href: "https://google.com.vn",
+        href: STAKING_PATH,
         Icon: StakingVaultIcon,
       },
     ],
@@ -337,12 +334,12 @@ const DATA = [
           },
           {
             label: "Analytics",
-            href: "https://google.com.vn",
+            href: CLASSIC_YIELD_PATH,
             Icon: AnalyticsIcon,
           },
           {
             label: "Learn",
-            href: "https://google.com.vn",
+            href: CLASSIC_YIELD_PATH,
             Icon: LearnIcon
           },
 
@@ -353,13 +350,13 @@ const DATA = [
         children: [
           {
             label: "Docs",
-            href: "https://google.com.vn",
+            href: CLASSIC_YIELD_PATH,
             Icon: MenuIcon,
             description: "Access documentation",
           },
           {
             label: "Dune",
-            href: "https://google.com.vn",
+            href: CLASSIC_YIELD_PATH,
             Icon: AnalyticsIcon,
             description: "Explore Dune data",
           },

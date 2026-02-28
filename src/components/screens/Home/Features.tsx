@@ -1,5 +1,5 @@
 import { Text } from "@/components/shared";
-import { Box, Container, Stack } from "@mui/material";
+import { Box, Container, Fade, Stack } from "@mui/material";
 import { Heading } from "./components";
 import FadeStack from "@/components/FadeStack";
 
@@ -18,7 +18,7 @@ export default function FeaturesSection() {
           textAlign={{ xs: "left", md: "center" }}
           alignItems={{ xs: "flex-start", md: "center" }}
         >
-          <Heading>GameBasis pillars for players & studios</Heading>
+          <Heading>List Game pillars for players & studios</Heading>
           <Text color="grey.400" maxWidth={720} mx="auto">
             Arcade gameplay, sustainable yield vaults, and seasonal passes that
             keep rewards flowing while driving long-term player engagement.
@@ -27,11 +27,16 @@ export default function FeaturesSection() {
 
         <Stack spacing={{ xs: 10, md: 14 }} mt={{ xs: 4, md: 6 }}>
           {FEATURES.map((feature, index) => (
-            <FeatureSection
-              feature={feature}
+            <FadeStack
               key={feature.title}
-              reverse={index % 2 === 1}
-            />
+              type={index % 2 === 1 ? 'left' : 'right'}
+              duration={(index + 1) * 0.2}
+            >
+              <FeatureSection
+                feature={feature}
+                reverse={index % 2 === 1}
+              />
+            </FadeStack>
           ))}
         </Stack>
       </FadeStack>

@@ -9,6 +9,7 @@ import {
   TrustedBy,
   Subscribe,
   FAQs,
+  SliderGame,
 } from "@/components/screens/Home";
 
 export const metadata: Metadata = generateMetadata("Home", HOME_PATH);
@@ -23,6 +24,7 @@ export default async function Home() {
           "radial-gradient(circle at top, #111827 0%, #020617 50%, #01030a 100%)",
       }}
     >
+      {/* <SliderGame /> */}
       <Overview />
       <FeaturesSection />
       <TrustedBy />

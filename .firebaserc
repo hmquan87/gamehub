@@ -1,6 +1,6 @@
 {
   "projects": {
-    "default": "gamebasis"
+    "default": "listgame"
   },
   "targets": {},
   "etags": {}

@@ -20,7 +20,7 @@ const Overview = (props: OverviewProps) => {
       pb={{ xs: 8, md: 12 }}
       minHeight={{ xs: "70vh", md: "80vh" }}
       sx={{
-        backgroundImage: `url(${HERO_BACKGROUND})`,
+        // backgroundImage: `url(${HERO_BACKGROUND})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -73,7 +73,7 @@ const Overview = (props: OverviewProps) => {
           >
             <Button
               variant="contained"
-              css={{ bgcolor: "common.white" }}
+              // css={{ bgcolor: "common.white" }}
               fullWidth
               LinkComponent={Link}
               href="https://google.com.vn"

@@ -34,7 +34,7 @@ export default async function Home() {
           aspectRatio={7107 / 764}
           size={{ xs: "90%", sm: "60%", md: 590 }}
           sizes="520px"
-          alt="GameBasis"
+          alt="listgame"
         />
         <Text
           mt="10svh"

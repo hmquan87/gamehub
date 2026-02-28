@@ -178,7 +178,7 @@ const getSx = (palette, css?: CSSObject) => {
     // CSS
     [`&.${buttonClasses.contained}`]: {
       [`&.${buttonClasses.colorPrimary}`]: {
-        color: css?.color ?? palette.text.secondary,
+        color: css?.color ?? palette.text.primary,
         bgcolor: css?.bgcolor ?? palette.primary?.["main"],
       },
       [`&.${buttonClasses.colorSecondary}`]: {

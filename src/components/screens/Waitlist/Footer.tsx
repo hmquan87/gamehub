@@ -26,7 +26,7 @@ const Footer = (props: FooterProps) => {
           spacing={1}
         >
           <Text variant="body2" lineHeight={1.5}>
-            © {new Date().getFullYear()} GameBasis. All rights reserved
+            © {new Date().getFullYear()} List Game. All rights reserved
           </Text>
           <Stack
             direction="row"

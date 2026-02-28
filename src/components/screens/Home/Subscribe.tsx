@@ -73,7 +73,7 @@ const Subscribe = (props: SubscribeProps) => {
             component="h3"
             sx={{ fontWeight: 600 }}
           >
-            Keep up with the GameBasis scene
+            Keep up with the List game scene
           </Text>
           <Text
             maxWidth={360}

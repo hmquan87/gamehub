@@ -7,7 +7,7 @@ import LogoTextImg from "public/images/img-logo-text.png";
 import Image from "next/image";
 import { HOME_PATH } from "@/constant/paths";
 
-const Logo = ({ height = 16 }: { height?: number }) => {
+const Logo = ({ height = 24 }: { height?: number }) => {
   return (
     <Stack
       direction="row"

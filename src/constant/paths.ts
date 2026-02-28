@@ -16,7 +16,11 @@ export const REFERRALS_PATH = "/referrals";
 export const CLASSIC_YIELD_PATH = "/classic-yield";
 export const NEWS_PATH = '/news';
 export const NEW_DETAIL_PATH = '/news/{slug}';
-
+export const ABOUT_US_PATH = '/about-us'
+export const BRANDKIT_PATH = '/brandkit'
+export const DOCS_PATH = '/docs'
+export const MYSTERY_BOX_PATH = '/mystery-box'
+export const STAKING_PATH = '/staking'
 export const WAITLIST_PATH = "/waitlist";
 export const AUTHOR_CONTENT_PATH = "/authors/{author}/content";
 export const AUTHOR_ACHIEVEMENTS_PATH = "/authors/{author}/achievements";

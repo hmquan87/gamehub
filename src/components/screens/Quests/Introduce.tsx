@@ -9,7 +9,7 @@ const Introduce = (props: IntroduceProps) => {
     <Stack width="100%" spacing={1}>
       <Text variant="h1">Quests</Text>
       <Text variant="subtitle2" maxWidth={600} color="grey.400">
-        Explore GameBasis Quests by completing in-game challenges and engaging
+        Explore List Game Quests by completing in-game challenges and engaging
         with top games to earn XP, level up, and unlock exclusive rewards.
       </Text>
     </Stack>

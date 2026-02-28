@@ -6,6 +6,7 @@ import { Text } from "@/components/shared";
 import Link from "@/components/Link";
 import { getTargetLink } from "@/utils";
 import { usePathname } from "next/navigation";
+import { ABOUT_US_PATH, BATTLE_PASS_PATH, BRANDKIT_PATH, DOCS_PATH, GAMES_PATH, MYSTERY_BOX_PATH, PARTNERS_PATH, QUESTS_PATH } from "@/constant/paths";
 
 type FooterNavigationProps = {};
 
@@ -53,10 +54,10 @@ const Item = (props: NavigationItem) => {
           spacing={1}
           {...(item?.href
             ? {
-                component: Link,
-                href: item.href,
-                target: getTargetLink(item.href),
-              }
+              component: Link,
+              href: item.href,
+              target: getTargetLink(item.href),
+            }
             : {})}
           key={item.label}
           className={pathname === item.href ? "active" : ""}
@@ -64,8 +65,8 @@ const Item = (props: NavigationItem) => {
             color: "grey.400",
             "&:hover, &.active": item?.href
               ? {
-                  color: "primary.main",
-                }
+                color: "primary.main",
+              }
               : {},
           }}
         >
@@ -103,19 +104,19 @@ const DATA = [
   {
     label: "Company",
     children: [
-      { label: "About Us", href: "https://google.com.vn" },
-      { label: "Partners", href: "https://google.com.vn" },
-      { label: "Brandkit", href: "https://google.com.vn" },
-      { label: "Docs", href: "https://google.com.vn" },
+      { label: "About Us", href: ABOUT_US_PATH },
+      { label: "Partners", href: PARTNERS_PATH },
+      { label: "Brandkit", href: BRANDKIT_PATH },
+      { label: "Docs", href: DOCS_PATH },
     ],
   },
   {
-    label: "GameBasis",
+    label: "Options",
     children: [
-      { label: "Games", href: "https://google.com.vn" },
-      { label: "Quests", href: "https://google.com.vn" },
-      { label: "Battle Pass", href: "https://google.com.vn" },
-      { label: "Mystery Box", href: "https://google.com.vn" },
+      { label: "Games", href: GAMES_PATH },
+      { label: "Quests", href: QUESTS_PATH },
+      { label: "Battle Pass", href: BATTLE_PASS_PATH },
+      { label: "Mystery Box", href: MYSTERY_BOX_PATH },
     ],
   },
 ];

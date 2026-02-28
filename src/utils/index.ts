@@ -706,3 +706,37 @@ export const isVideoUrl = (url: string): boolean => {
     return false;
   }
 };
+
+export const getTime = (dateInput: string | number | Date) => {
+  const now = new Date();
+  const inputDate = new Date(dateInput);
+  let diff = Math.max(
+    0,
+    Math.floor((now.getTime() - inputDate.getTime()) / 1000),
+  );
+  // let diff = Math.max(
+  //   0,
+  //   Math.floor(inputDate.getTime() - (now.getTime()) / 1000),
+  // );
+  const secondsInMinute = 60;
+  const secondsInHour = secondsInMinute * 60;
+  const secondsInDay = secondsInHour * 24;
+  const secondsInMonth = 30 * secondsInDay;
+  const secondsInYear = 365 * secondsInDay;
+  const years = Math.floor(diff / secondsInYear);
+  diff %= secondsInYear;
+  const months = Math.floor(diff / secondsInMonth);
+  diff %= secondsInMonth;
+  const days = Math.floor(diff / secondsInDay);
+  diff %= secondsInDay;
+  const hours = Math.floor(diff / secondsInHour);
+  diff %= secondsInHour;
+  const minutes = Math.floor(diff / secondsInMinute);
+  const seconds = diff % secondsInMinute;
+  if (years > 0) return `${years} ${years > 1 ? "years" : "year"}`;
+  if (months > 0) return `${months} ${months > 1 ? "months" : "month"}`;
+  if (days > 0) return `${days} ${days > 1 ? "days" : "day"}`;
+  if (hours > 0) return `${hours} ${hours > 1 ? "hours" : "hour"}`;
+  if (minutes > 0) return `${minutes} ${minutes > 1 ? "minutes" : "minute"}`;
+  return `${seconds} ${seconds > 1 ? "seconds" : "second"}`;
+};

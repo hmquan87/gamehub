@@ -151,67 +151,24 @@ const AuthProvider = (props: AuthProviderProps) => {
         if (!wallet || isConnectingRef.current) return;
         setStatus(WalletStatus.SIGNING);
         isConnectingRef.current = true;
-        const response = await client.post(Endpoint.SIGNATURE_MESSAGE, {
-          wallet: wallet.address,
-          // chainId: _chainId,
+        const privyProvider: EIP1193Provider =
+          await wallet.getEthereumProvider();
+        const _walletClient = getWalletClient(wallet.address, privyProvider);
+        const _chainId = await _walletClient.getChainId();
+        setStatus(WalletStatus.SIGNING);
+        const signature = await _walletClient.signMessage({
+          message: 'signmessage',
+          account: wallet.address as Hex,
         });
 
-        if (response?.status === HttpStatusCode.Created) {
-          const privyProvider: EIP1193Provider =
-            await wallet.getEthereumProvider();
-
-          const _walletClient = getWalletClient(wallet.address, privyProvider);
-
-          const _chainId = await _walletClient.getChainId();
-          setStatus(WalletStatus.SIGNING);
-
-          const signature = await _walletClient.signMessage({
-            message: response.data,
-            account: wallet.address as Hex,
-          });
-
-          if (!signature) return;
-
-          const responseAuth = await client.post(Endpoint.AUTH, {
-            wallet: wallet.address,
-            signature,
-            // chainId: _chainId,
-          });
-
-          if (responseAuth?.status === HttpStatusCode?.Created) {
-            const { accessToken, user } = responseAuth.data;
-
-            const newAuthData = {
-              user,
-              token: accessToken,
-              address: wallet.address,
-              clientType: wallet.walletClientType,
-              timeNextFaucet: 0,
-            };
-
-            authDataRef.current = newAuthData;
-
-            const queryString = stringifyURLSearchParams({
-              ...queriesRef.current,
-              ref: user.refCode,
-            });
-            window.history.pushState({}, "", queryString);
-
-            setCookie(AUTH_COOKIE, newAuthData);
-
-            onGetProfile(accessToken);
-            setAccessToken(accessToken);
-            setToken(accessToken);
-            setWalletClient(_walletClient);
-            setAddress(wallet.address);
-            setChainId(_chainId);
-            setClientType(wallet.walletClientType);
-            setStatus(WalletStatus.CONNECTED);
-
-            if (_chainId !== SUPPORTED_CHAIN_ID) {
-              await _walletClient?.switchChain({ id: SUPPORTED_CHAIN_ID });
-            }
-          }
+        if (!signature) return;
+        setWalletClient(_walletClient);
+        setAddress(wallet.address);
+        setChainId(_chainId);
+        setClientType(wallet.walletClientType);
+        setStatus(WalletStatus.CONNECTED);
+        if (_chainId !== SUPPORTED_CHAIN_ID) {
+          await _walletClient?.switchChain({ id: SUPPORTED_CHAIN_ID });
         }
       } catch (error) {
         console.error(error);
