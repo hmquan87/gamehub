@@ -19,12 +19,13 @@ import ShareBlog from "./ShareBlog";
 import { useRouter } from "next/navigation";
 import Chip from "@/components/Chip";
 
-export interface BlogProps {
-    data: TypeBlog;
-}
+// export interface BlogProps {
+//     data: TypeBlog;
+// }
 
-const Blog = (props: BlogProps) => {
-    const { data } = props;
+const Blog = () => {
+    // const { data } = props;
+    const { blog: data } = useBlogs()
     const { refCode } = useProfile();
     const blogRef = useRef<HTMLDivElement>(null);
     const [headings, setHeadings] = useState<TabItem[]>([]);
@@ -389,14 +390,14 @@ const Blog = (props: BlogProps) => {
                         </Button>
                     </Stack>
                 </Stack>
-                <Stack
+                {/* <Stack
                     flex={1}
                 >
                     <RelatedBlog
                         data={blogs}
                         currentBlogId={data.id}
                     />
-                </Stack>
+                </Stack> */}
 
             </Stack>
             <ShareBlog

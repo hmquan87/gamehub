@@ -46,7 +46,7 @@ export interface BlogState {
     tags: TagItem[],
     tagFilters: Omit<ListTagsQueries, 'pageIndex' | "pageSize">,
     tagPaging: Paging,
-    loadingTags: DataStatus
+    loadingTags: DataStatus,
 }
 
 export const initialState: BlogState = {
@@ -74,6 +74,9 @@ const blogReducer = createSlice({
     name: 'blog',
     initialState,
     reducers: {
+        setBlog: (state, action: PayloadAction<Blog>) => {
+            state.blog = action.payload
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -111,4 +114,6 @@ const blogReducer = createSlice({
     }
 })
 
+
+export const { setBlog } = blogReducer.actions
 export default blogReducer.reducer

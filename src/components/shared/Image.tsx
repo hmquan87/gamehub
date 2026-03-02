@@ -50,7 +50,7 @@ const Image = forwardRef((props: any, ref) => {
         key={key}
         {...restContainerProps}
       >
-        <NextImage onLoad={onLoad} fill alt={alt} {...rest} />
+        <NextImage onLoad={onLoad} fill alt={alt ? alt : 'image'} {...rest} />
       </Stack>
     );
   }

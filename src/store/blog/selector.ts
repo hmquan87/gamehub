@@ -2,6 +2,7 @@ import { useCallback, useMemo } from "react"
 import { useAppDispatch, useAppSelector } from "../hooks"
 import { BlogsQueries, getBlog, getBlogs } from "./action"
 import { DataStatus } from "@/constant/enum"
+import { Blog, setBlog } from "./reducer"
 
 
 export const useBlogs = () => {
@@ -18,6 +19,9 @@ export const useBlogs = () => {
         dispatch(getBlog(slug))
     }, [dispatch]);
 
+    const onSetBlog = (item: Blog) => {
+        dispatch(setBlog(item))
+    }
 
     const isFetching = useMemo(() => loading === DataStatus.LOADING, [loading]);
     const isSucceeded = useMemo(() => loading === DataStatus.SUCCEEDED, [loading]);
@@ -34,6 +38,7 @@ export const useBlogs = () => {
         ...blogPaging,
         onGetBlog,
         onGetBlogs,
+        onSetBlog
     }
 
 }

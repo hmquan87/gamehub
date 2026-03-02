@@ -15,7 +15,7 @@ import {
   Skeleton,
   Stack
 } from "@mui/material";
-import { memo, useEffect, useRef } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import StringFormat from "string-format";
 import {
   BlogClientQueries,
@@ -37,49 +37,64 @@ const ItemList = (props: ItemListProps) => {
     blogFilters,
     isFetching,
     isSucceeded,
-    error
+    error,
+    onSetBlog
   } = useBlogs()
 
-  const { tag } = useParams() as { tag: string }
-  const { push } = useRouter()
-  const { address } = useAuthPrivy();
-
-  const handleClickTags = (tags: string) => {
-    // push(`${NEWS_PATH}/tag/${tags}`)
-    const encodedTag = encodeURIComponent(tags.trim());
-    push(`${NEWS_PATH}/tag/${encodedTag}`);
-  }
-
-
-
-  const queries = useQueryParams() as BlogClientQueries;
-
-  const filtersRef = useRef<BlogState["blogFilters"]>({
-    tags: queries?.tags || initialState.blogFilters?.tags,
-    search: queries?.search || initialState.blogFilters?.search,
-  });
-  const pageIndexRef = useRef<number>(queries?.page ?? pageIndex);
-  const pageSizeRef = useRef<number>(pageSize);
-
-  const onChangePage = (newPage: number) => {
-    const newQueries = cleanObject({
-      ...blogFilters,
-      pageSize: DEFAULT_PAGE_SIZE,
-      pageIndex: newPage,
-    });
-
-    onGetBlogs(newQueries);
-    pushState(newQueries);
-  };
+  const [isLoading, setIsLoading] = useState<boolean>(true)
 
   useEffect(() => {
-    onGetBlogs({
-      ...filtersRef.current,
-      tags: tag,
-      pageIndex: pageIndexRef.current,
-      pageSize: DEFAULT_PAGE_SIZE,
-    });
-  }, [onGetBlogs, tag, address]);
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 1000)
+  }, [])
+
+
+  const { tag } = useParams() as { tag: string }
+  // const { push } = useRouter()
+  // const { address } = useAuthPrivy();
+
+  // const handleClickTags = (tags: string) => {
+  //   // push(`${NEWS_PATH}/tag/${tags}`)
+  //   const encodedTag = encodeURIComponent(tags.trim());
+  //   push(`${NEWS_PATH}/tag/${encodedTag}`);
+  // }
+
+
+
+  // const queries = useQueryParams() as BlogClientQueries;
+
+  // const filtersRef = useRef<BlogState["blogFilters"]>({
+  //   tags: queries?.tags || initialState.blogFilters?.tags,
+  //   search: queries?.search || initialState.blogFilters?.search,
+  // });
+  // const pageIndexRef = useRef<number>(queries?.page ?? pageIndex);
+  // const pageSizeRef = useRef<number>(pageSize);
+
+  // const onChangePage = (newPage: number) => {
+  //   const newQueries = cleanObject({
+  //     ...blogFilters,
+  //     pageSize: DEFAULT_PAGE_SIZE,
+  //     pageIndex: newPage,
+  //   });
+
+  //   onGetBlogs(newQueries);
+  //   pushState(newQueries);
+  // };
+
+  // useEffect(() => {
+  //   onGetBlogs({
+  //     ...filtersRef.current,
+  //     tags: tag,
+  //     pageIndex: pageIndexRef.current,
+  //     pageSize: DEFAULT_PAGE_SIZE,
+  //   });
+  // }, [onGetBlogs, tag, address]);
+
+
+  const handleBlog = (item: Blog) => {
+    onSetBlog(item)
+  }
 
   return (
     <Stack spacing={4} flex={1} overflow="hidden">
@@ -94,7 +109,7 @@ const ItemList = (props: ItemListProps) => {
         // }}
         gap={3}
       >
-        {error || (isSucceeded && totalItems === 0) ? (
+        {/* {error || (isSucceeded && totalItems === 0) ? (
           <Stack
             flex={1}
             justifyContent="center"
@@ -150,6 +165,51 @@ const ItemList = (props: ItemListProps) => {
             </Stack>
 
           </Stack>
+        )} */}
+        {isLoading ? (
+          Array.from(new Array(6)).map((_, index) => (
+            <Skeleton
+              key={index}
+              sx={{ borderRadius: 2 }}
+              variant="rounded"
+              width="100%"
+              height={200}
+            />
+          ))
+        ) : (
+          <Stack
+            width={'100%'}
+            gap={2}
+          >
+            <Text
+              variant={'h2'}
+              fontSize={{ md: 40, xs: 32 }}
+              textAlign={'center'}
+              color="primary.main"
+            >
+              {tag ? tag : "News"}
+            </Text>
+            <Box minHeight="1px" mb={{ md: 4, xs: 2 }} width="100%" height="1px" bgcolor="primary.main" />
+            <Stack
+              width="100%"
+              height="fit-content"
+              display="grid"
+              gridTemplateColumns={{
+                xs: "repeat(1, 1fr)",
+                sm: "repeat(2, 1fr)",
+                lg: "repeat(3, 1fr)",
+              }}
+              gap={3}
+            >
+              {DATA_BLOG?.map((item, itemIndex) =>
+                <Item key={itemIndex} item={item}
+                  // onclick={handleClickTags} 
+                  onclick={handleBlog}
+                />
+              )}
+            </Stack>
+
+          </Stack>
         )}
       </Stack>
       {/* {Number(totalPages) > 1 && (
@@ -168,7 +228,7 @@ const ItemList = (props: ItemListProps) => {
 
 export default memo(ItemList);
 
-const Item = (props: { item: Blog, onclick?: (key: string) => void }) => {
+const Item = (props: { item: Blog, onclick?: (item: Blog) => void }) => {
   const { item, onclick } = props;
 
   return (
@@ -177,6 +237,9 @@ const Item = (props: { item: Blog, onclick?: (key: string) => void }) => {
       borderRadius={2}
       component={Link}
       href={StringFormat(NEW_DETAIL_PATH, { slug: item.slug })}
+      onClick={() => {
+        if (onclick) onclick(item)
+      }}
       border="1px solid"
       borderColor="divider"
       bgcolor="background.paper"
@@ -243,11 +306,11 @@ const Item = (props: { item: Blog, onclick?: (key: string) => void }) => {
               key={i}
               fontSize={12}
               fontWeight={500}
-              onclick={() => {
-                if (onclick) {
-                  onclick(tags)
-                }
-              }}
+            // onclick={() => {
+            //   if (onclick) {
+            //     onclick(tags)
+            //   }
+            // }}
             />
           })}
 
