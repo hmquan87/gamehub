@@ -27,25 +27,25 @@ const Seasons = (props: SeasonsProps) => {
 
   return (
     <Stack width="100%" alignItems="center" spacing={2}>
-      {!!activeSeason && (
-        <Stack
-          direction="row"
-          alignItems="center"
-          justifyContent="center"
-          px={2.5}
-          py={0.875}
-          borderRadius={25}
-          bgcolor="primary.darkChannel"
-          border="1px solid"
-          borderColor="primary.main"
-        >
-          <Text variant="h5" textTransform="uppercase">
-            {`● ${activeSeason.name} live now`}
-          </Text>
-        </Stack>
-      )}
-
+      {/* {!!activeSeason && ( */}
       <Stack
+        direction="row"
+        alignItems="center"
+        justifyContent="center"
+        px={2.5}
+        py={0.875}
+        borderRadius={25}
+        bgcolor="primary.darkChannel"
+        border="1px solid"
+        borderColor="primary.main"
+      >
+        <Text variant="h5" textTransform="uppercase">
+          {`● Season 2 live now`}
+        </Text>
+      </Stack>
+      {/* )} */}
+
+      {/* <Stack
         direction="row"
         alignItems="center"
         spacing={2.5}
@@ -75,7 +75,7 @@ const Seasons = (props: SeasonsProps) => {
             </Text>
           );
         })}
-      </Stack>
+      </Stack> */}
     </Stack>
   );
 };
