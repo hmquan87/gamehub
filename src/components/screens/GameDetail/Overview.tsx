@@ -1,3 +1,5 @@
+'use client'
+
 import { memo } from "react";
 import { Box, Stack } from "@mui/material";
 import { Button, Text } from "@/components/shared";
@@ -5,7 +7,7 @@ import Link from "@/components/Link";
 import { HEADER_HEIGHT, MENUBAR_HEIGHT } from "@/constant";
 import CTAButton from "./CTAButton";
 import { spaceGrostesk } from "public/fonts";
-import { Game } from "@/store/game";
+import { Game, useGame } from "@/store/game";
 import StarIcon from "@/icons/StarIcon";
 import { typography } from "public/material";
 import { Follow, XFollowers } from "./components";
@@ -15,7 +17,9 @@ type OverviewProps = {
   data: Game;
 };
 
-const Overview = ({ data }: OverviewProps) => {
+const Overview = () => {
+  const { item: data } = useGame()
+  if (!data) return
   return (
     <Stack
       position="relative"
@@ -44,7 +48,7 @@ const Overview = ({ data }: OverviewProps) => {
         }}
         zIndex={1}
       />
-      {isVideoUrl(data?.banner) ? (
+      {data?.banner && isVideoUrl(data.banner) ? (
         <Stack
           flex={1}
           component="video"
@@ -56,7 +60,7 @@ const Overview = ({ data }: OverviewProps) => {
           playsInline
           sx={{ objectFit: "cover" }}
         >
-          <source src={data?.banner} />
+          <source src={data.banner} />
         </Stack>
       ) : data?.banner ? (
         <Box

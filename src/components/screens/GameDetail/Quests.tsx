@@ -11,7 +11,7 @@ import {
   StackProps,
 } from "@mui/material";
 import { IconButton, Text } from "@/components/shared";
-import { Game } from "@/store/game";
+import { Game, useGame } from "@/store/game";
 import useToggle from "@/hooks/useToggle";
 import CloseIcon from "@/icons/CloseIcon";
 import { formatNumber, getTargetLink } from "@/utils";
@@ -26,7 +26,7 @@ type QuestsProps = {
   data: Game;
 };
 
-const Quests = ({ data }: QuestsProps) => {
+const Quests = () => {
   const {
     onGetMissions,
     missionCompleted = 0,
@@ -37,11 +37,15 @@ const Quests = ({ data }: QuestsProps) => {
     isSucceeded,
   } = useMissions();
 
+  const { item: data } = useGame()
+
   const [isShow, onShow, onHide] = useToggle();
 
-  useEffect(() => {
-    onGetMissions(data.slug, initialState.missionItemsPaging);
-  }, [onGetMissions, data.slug]);
+  // useEffect(() => {
+  //   onGetMissions(data.slug, initialState.missionItemsPaging);
+  // }, [onGetMissions, data.slug]);
+
+  if (!data) return
 
   return (
     <>
@@ -179,10 +183,10 @@ const Item = ({ item, ...rest }: { item: Mission } & StackProps) => {
       {...(item?.isCompleted
         ? {}
         : {
-            component: Link,
-            href: item.url,
-            target: getTargetLink(item.url),
-          })}
+          component: Link,
+          href: item.url,
+          target: getTargetLink(item.url),
+        })}
       sx={{
         opacity: item?.isCompleted ? 0.6 : 1,
       }}

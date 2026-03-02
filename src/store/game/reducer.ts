@@ -40,19 +40,22 @@ export interface GameRate {
 
 export interface Game {
   id: string;
-  name: string;
-  slug: string;
-  shortDescription: string;
-  content: string;
-  logo: string;
-  banner: string;
+  name?: string;
+  slug?: string;
+  shortDescription?: string;
+  content?: string;
+  logo?: string;
+  banner?: string;
   link?: string;
-  genres: GameGenre[];
-  platforms: {
-    platform: GamePlatform;
-    link: string;
+  genres?: string[];
+  status?: number,
+  developer?: string,
+  thumbnail?: string | null,
+  platforms?: {
+    platform?: string[] | string;
+    link?: string;
   }[];
-  publisher: GamePublisher;
+  publisher: string;
   description?: string;
   socials?: {
     discord?: string;
@@ -65,10 +68,11 @@ export interface Game {
   };
   releaseStatus?: GameStatus;
   following?: boolean;
-  rate: number;
-  rates: GameRate[];
-  age: string;
-  mediaUrl: string[];
+  rate?: number;
+  rates?: GameRate[];
+  age?: string;
+  mediaUrl?: string[];
+  createdAt?: string
 }
 
 export interface GameState {
@@ -111,117 +115,123 @@ const gameSlice = createSlice({
 
   extraReducers: (builder) => {
     builder
-      // MARKETS
-      .addCase(getGames.pending, (state, action) => {
-        state.gameItemsStatus = DataStatus.LOADING;
-        state.gameItemsFilters = getFiltersFromQueries(action.meta.arg);
-        state.gameItemsPaging.pageIndex = action.meta.arg.pageIndex;
-      })
-      .addCase(
-        getGames.fulfilled,
-        (state, action: PayloadAction<ItemListResponse<Game>>) => {
-          const { items, ...paging } = action.payload;
+    // MARKETS
+    // .addCase(getGames.pending, (state, action) => {
+    //   state.gameItemsStatus = DataStatus.LOADING;
+    //   state.gameItemsFilters = getFiltersFromQueries(action.meta.arg);
+    //   state.gameItemsPaging.pageIndex = action.meta.arg.pageIndex;
+    // })
+    // .addCase(
+    //   getGames.fulfilled,
+    //   (state, action: PayloadAction<ItemListResponse<Game>>) => {
+    //     const { items, ...paging } = action.payload;
 
-          state.gameItemsStatus = DataStatus.SUCCEEDED;
-          state.gameItems = items;
-          state.gameItemsPaging = paging;
-          state.gameItemsError = undefined;
-        },
-      )
-      .addCase(getGames.rejected, (state, action) => {
-        state.gameItemsStatus = DataStatus.FAILED;
-        state.gameItemsError = action.error.message || AN_ERROR_TRY_AGAIN;
-        state.gameItemsPaging.totalItems = undefined;
-        state.gameItemsPaging.totalPages = undefined;
-      })
+    //     state.gameItemsStatus = DataStatus.SUCCEEDED;
+    //     state.gameItems = items;
+    //     state.gameItemsPaging = paging;
+    //     state.gameItemsError = undefined;
+    //   },
+    // )
+    // .addCase(getGames.rejected, (state, action) => {
+    //   state.gameItemsStatus = DataStatus.FAILED;
+    //   state.gameItemsError = action.error.message || AN_ERROR_TRY_AGAIN;
+    //   state.gameItemsPaging.totalItems = undefined;
+    //   state.gameItemsPaging.totalPages = undefined;
+    // })
 
-      .addCase(followGame.fulfilled, (state, action) => {
-        const index = state.gameItems.findIndex(
-          (item) => item.id === action.meta.arg,
-        );
+    // .addCase(followGame.fulfilled, (state, action) => {
+    //   const index = state.gameItems.findIndex(
+    //     (item) => item.id === action.meta.arg,
+    //   );
 
-        if (index !== -1) {
-          state.gameItems[index].following = true;
-        }
-        if (action.meta.arg === state?.gameItem?.id) {
-          state.gameItem.following = true;
-        }
-      })
-      .addCase(unfollowGame.fulfilled, (state, action) => {
-        const index = state.gameItems.findIndex(
-          (item) => item.id === action.meta.arg,
-        );
+    //   if (index !== -1) {
+    //     state.gameItems[index].following = true;
+    //   }
+    //   if (action.meta.arg === state?.gameItem?.id) {
+    //     state.gameItem.following = true;
+    //   }
+    // })
+    // .addCase(unfollowGame.fulfilled, (state, action) => {
+    //   const index = state.gameItems.findIndex(
+    //     (item) => item.id === action.meta.arg,
+    //   );
 
-        if (index !== -1) {
-          state.gameItems[index].following = false;
-        }
-        if (action.meta.arg === state?.gameItem?.id) {
-          state.gameItem.following = false;
-        }
-      })
-      .addCase(rateGame.fulfilled, (state, action) => {
-        const data = {
-          ...action.payload,
-          time: new Date().toISOString(),
-        };
+    //   if (index !== -1) {
+    //     state.gameItems[index].following = false;
+    //   }
+    //   if (action.meta.arg === state?.gameItem?.id) {
+    //     state.gameItem.following = false;
+    //   }
+    // })
+    // .addCase(rateGame.fulfilled, (state, action) => {
+    //   const data = {
+    //     ...action.payload,
+    //     time: new Date().toISOString(),
+    //   };
 
-        const index = state.gameItems.findIndex(
-          (item) => item.id === action.meta.arg.gameId,
-        );
+    //   const index = state.gameItems.findIndex(
+    //     (item) => item.id === action.meta.arg.gameId,
+    //   );
 
-        if (index !== -1) {
-          state.gameItems[index].rates.unshift(data);
-          const totalRate = state.gameItems[index].rates.reduce((out, item) => {
-            return out + item.score;
-          }, 0);
-          state.gameItems[index].rate =
-            totalRate / state.gameItems[index].rates.length;
-        }
-        if (action.meta.arg.gameId === state?.gameItem?.id) {
-          state.gameItem.rates.unshift(data);
-          const totalRate = state.gameItem.rates.reduce((out, item) => {
-            return out + item.score;
-          }, 0);
-          state.gameItem.rate = totalRate / state.gameItem.rates.length;
-        }
-      })
-      .addCase(deleteRateGame.fulfilled, (state, action) => {
-        const index = state.gameItems.findIndex(
-          (item) => item.id === action.meta.arg,
-        );
+    //   if (index !== -1) {
+    //     if (!state.gameItems[index].rates) {
+    //       state.gameItems[index].rates = [];
+    //     }
+    //     state.gameItems[index].rates.unshift(data);
+    //     const totalRate = state.gameItems[index].rates.reduce((out, item) => {
+    //       return out + item.score;
+    //     }, 0);
+    //     state.gameItems[index].rate =
+    //       totalRate / state.gameItems[index].rates.length;
+    //   }
+    //   if (action.meta.arg.gameId === state?.gameItem?.id) {
+    //     if (!state.gameItem.rates) {
+    //       state.gameItem.rates = [];
+    //     }
+    //     state.gameItem.rates.unshift(data);
+    //     const totalRate = state.gameItem.rates.reduce((out, item) => {
+    //       return out + item.score;
+    //     }, 0);
+    //     state.gameItem.rate = totalRate / state.gameItem.rates.length;
+    //   }
+    // })
+    // .addCase(deleteRateGame.fulfilled, (state, action) => {
+    //   const index = state.gameItems.findIndex(
+    //     (item) => item.id === action.meta.arg,
+    //   );
 
-        if (index !== -1) {
-          const indexRate = state.gameItems[index]?.rates?.findIndex(
-            (item) => item.userId === action.payload,
-          );
+    //   if (index !== -1) {
+    //     const indexRate = state.gameItems[index]?.rates?.findIndex(
+    //       (item) => item.userId === action.payload,
+    //     );
 
-          if (typeof indexRate === "number" && indexRate !== -1) {
-            state.gameItems[index].rates.splice(indexRate, 1);
-            const totalRate = state.gameItems[index].rates.reduce(
-              (out, item) => {
-                return out + item.score;
-              },
-              0,
-            );
-            state.gameItems[index].rate =
-              totalRate / (state.gameItems[index].rates.length || 1);
-          }
-        }
-        if (action.meta.arg === state?.gameItem?.id) {
-          const indexRate = state.gameItem.rates.findIndex(
-            (item) => item.userId === action.payload,
-          );
+    //     if (typeof indexRate === "number" && indexRate !== -1) {
+    //       state.gameItems[index].rates!.splice(indexRate, 1);
+    //       const totalRate = state.gameItems[index].rates!.reduce(
+    //         (out, item) => {
+    //           return out + item.score;
+    //         },
+    //         0,
+    //       );
+    //       state.gameItems[index].rate =
+    //         totalRate / (state.gameItems[index].rates!.length || 1);
+    //     }
+    //   }
+    //   if (action.meta.arg === state?.gameItem?.id) {
+    //     const indexRate = state.gameItem.rates?.findIndex(
+    //       (item) => item.userId === action.payload,
+    //     );
 
-          if (typeof indexRate === "number" && indexRate !== -1) {
-            state.gameItem.rates.splice(indexRate, 1);
-            const totalRate = state.gameItem.rates.reduce((out, item) => {
-              return out + item.score;
-            }, 0);
-            state.gameItem.rate =
-              totalRate / (state.gameItem.rates.length || 1);
-          }
-        }
-      });
+    //     if (typeof indexRate === "number" && indexRate !== -1) {
+    //       state.gameItem.rates!.splice(indexRate, 1);
+    //       const totalRate = state.gameItem.rates!.reduce((out, item) => {
+    //         return out + item.score;
+    //       }, 0);
+    //       state.gameItem.rate =
+    //         totalRate / (state.gameItem.rates!.length || 1);
+    //     }
+    //   }
+    // });
   },
 });
 

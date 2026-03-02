@@ -47,17 +47,17 @@ export async function generateMetadata({ params }): Promise<Metadata> {
 }
 
 export default async function Home({ params }) {
-  const { slug } = await params;
-  const accessToken = await getAccessTokenCookie();
-  const blogData = await fetchEventData(slug, accessToken);
+  // const { slug } = await params;
+  // const accessToken = await getAccessTokenCookie();
+  // const blogData = await fetchEventData(slug, accessToken);
 
-  if (!blogData) {
-    notFound();
-  }
+  // if (!blogData) {
+  //   notFound();
+  // }
   return (
     <Stack component={Container} spacing={4} maxWidth="lg">
-      <ViewTracking />
-      <UTMTracker />
+      {/* <ViewTracking /> */}
+      {/* <UTMTracker /> */}
       <Stack
         direction={{ xs: "column-reverse", md: "row" }}
         maxWidth={"lg"}
@@ -65,7 +65,7 @@ export default async function Home({ params }) {
         mx={"auto"}
         py={4}
       >
-        <Blog data={blogData} />
+        <Blog />
       </Stack>
     </Stack>
 

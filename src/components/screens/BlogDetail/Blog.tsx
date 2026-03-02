@@ -19,12 +19,13 @@ import ShareBlog from "./ShareBlog";
 import { useRouter } from "next/navigation";
 import Chip from "@/components/Chip";
 
-export interface BlogProps {
-    data: TypeBlog;
-}
+// export interface BlogProps {
+//     data: TypeBlog;
+// }
 
-const Blog = (props: BlogProps) => {
-    const { data } = props;
+const Blog = () => {
+    // const { data } = props;
+    const { blog: data } = useBlogs()
     const { refCode } = useProfile();
     const blogRef = useRef<HTMLDivElement>(null);
     const [headings, setHeadings] = useState<TabItem[]>([]);
@@ -32,7 +33,7 @@ const Blog = (props: BlogProps) => {
     const [size, setSize] = useState<{ width: number; height: number } | null>(
         null,
     );
-    const { blogs, onGetBlogs } = useBlogs();
+    const { blogs } = useBlogs();
     const { push } = useRouter()
     const [isShow, onShow, onHide] = useToggle();
     const inviteUrl = useMemo(
@@ -44,15 +45,15 @@ const Blog = (props: BlogProps) => {
     );
 
 
-    useEffect(() => {
-        if (data) {
-            onGetBlogs({
-                pageIndex: 1,
-                pageSize: 10,
-                tags: data?.tags?.join(";") ?? '',
-            });
-        }
-    }, [data])
+    // useEffect(() => {
+    //     if (data) {
+    //         onGetBlogs({
+    //             pageIndex: 1,
+    //             pageSize: 10,
+    //             tags: data?.tags?.join(";") ?? '',
+    //         });
+    //     }
+    // }, [data])
 
     useEffect(() => {
         const url = data.thumbnailUrl;
@@ -172,7 +173,7 @@ const Blog = (props: BlogProps) => {
     }, [headings]);
 
     const handleClick = () => {
-        push(StringFormat(AUTHOR_CONTENT_PATH, { author: data?.author?.name }))
+        push(StringFormat(AUTHOR_CONTENT_PATH, { author: data?.author?.name ?? 'profile' }))
     }
 
     const handleClickTags = (tags: string) => {
@@ -389,14 +390,14 @@ const Blog = (props: BlogProps) => {
                         </Button>
                     </Stack>
                 </Stack>
-                <Stack
+                {/* <Stack
                     flex={1}
                 >
                     <RelatedBlog
                         data={blogs}
                         currentBlogId={data.id}
                     />
-                </Stack>
+                </Stack> */}
 
             </Stack>
             <ShareBlog

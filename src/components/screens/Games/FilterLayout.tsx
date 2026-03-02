@@ -54,7 +54,7 @@ type FilterLayoutProps = {
 const FilterLayout = (props: FilterLayoutProps) => {
   const { children } = props;
 
-  const { filters, onGetGames, pageSize } = useGames();
+  const { filters, pageSize } = useGames();
   const queries = useQueryParams() as { q?: string };
 
   const onChangeField = (name: string, value) => {
@@ -65,7 +65,7 @@ const FilterLayout = (props: FilterLayoutProps) => {
       [name]: value,
     });
 
-    onGetGames(newQueries);
+    // onGetGames(newQueries);
 
     pushState(newQueries);
   };
@@ -142,7 +142,7 @@ export default memo(FilterLayout);
 
 const Category = () => {
   const { isConnected, onConnect } = useAuthPrivy();
-  const { filters, pageSize, onGetGames } = useGames();
+  const { filters, pageSize } = useGames();
 
   const onChangeField = (name: string, value) => () => {
     const newQueries = cleanObject({
@@ -152,7 +152,7 @@ const Category = () => {
       [name]: value,
     });
 
-    onGetGames(newQueries);
+    // onGetGames(newQueries);
     pushState(newQueries);
   };
 
@@ -164,7 +164,7 @@ const Category = () => {
       isFollowing: filters?.isFollowing ? undefined : true,
     });
 
-    onGetGames(newQueries);
+    // onGetGames(newQueries);
     pushState(newQueries);
   };
 
@@ -313,7 +313,7 @@ const Item = (props) => {
 };
 
 const Platforms = (props) => {
-  const { filters, onGetGames, pageSize } = useGames();
+  const { filters, pageSize } = useGames();
 
   const [isShow, , , onToggle] = useToggle();
 
@@ -330,7 +330,7 @@ const Platforms = (props) => {
       [name]: value,
     });
 
-    onGetGames(newQueries);
+    // onGetGames(newQueries);
     pushState(newQueries);
   };
 
@@ -341,7 +341,7 @@ const Platforms = (props) => {
       ...initialState.gameItemsFilters,
     });
 
-    onGetGames(newQueries);
+    // onGetGames(newQueries);
 
     pushState(newQueries);
   };
@@ -387,7 +387,7 @@ const Platforms = (props) => {
 };
 
 const Genres = (props) => {
-  const { filters, onGetGames, pageSize } = useGames();
+  const { filters, pageSize } = useGames();
 
   const [isShow, , , onToggle] = useToggle();
 
@@ -404,7 +404,7 @@ const Genres = (props) => {
       [name]: value,
     });
 
-    onGetGames(newQueries);
+    // onGetGames(newQueries);
     pushState(newQueries);
   };
 
@@ -433,7 +433,7 @@ const Genres = (props) => {
 };
 
 const Statuses = (props) => {
-  const { filters, onGetGames, pageSize } = useGames();
+  const { filters, pageSize } = useGames();
 
   const [isShow, , , onToggle] = useToggle();
 
@@ -450,7 +450,7 @@ const Statuses = (props) => {
       [name]: value,
     });
 
-    onGetGames(newQueries);
+    // onGetGames(newQueries);
     pushState(newQueries);
   };
 

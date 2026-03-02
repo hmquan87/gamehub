@@ -11,14 +11,15 @@ import { Text } from "@/components/shared";
 import Link from "@/components/Link";
 import StringFormat from "string-format";
 import { usePathname } from "next/navigation";
+import { useGame } from "@/store/game";
 
 type TabsProps = {
   slug: string;
 };
 
-const Tabs = ({ slug }: TabsProps) => {
+const Tabs = () => {
   const pathname = usePathname();
-
+  const { item: data } = useGame()
   return (
     <Stack
       mt={-4.875}
@@ -34,7 +35,7 @@ const Tabs = ({ slug }: TabsProps) => {
         maxWidth="lg"
       >
         {DATA.map((item) => {
-          const href = StringFormat(item.href, { slug });
+          const href = StringFormat(item.href, { slug: data?.slug });
 
           return (
             <Text
@@ -47,13 +48,13 @@ const Tabs = ({ slug }: TabsProps) => {
               borderBottom="1px solid"
               {...(pathname === href
                 ? {
-                    color: "common.white",
-                    borderColor: "common.white",
-                  }
+                  color: "common.white",
+                  borderColor: "common.white",
+                }
                 : {
-                    color: "grey.400",
-                    borderColor: "transparent",
-                  })}
+                  color: "grey.400",
+                  borderColor: "transparent",
+                })}
             >
               {item.label}
             </Text>

@@ -24,6 +24,7 @@ export const useGames = () => {
     gameItemsFilters: filters,
     gameItemsPaging: paging,
     gameItemsError: error,
+    
   } = useAppSelector((state) => state.game, shallowEqual);
 
   const isFetching = useMemo(() => status === DataStatus.LOADING, [status]);

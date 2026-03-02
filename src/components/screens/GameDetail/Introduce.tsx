@@ -1,12 +1,15 @@
+'use client'
+
 import { memo } from "react";
 import { Box, Stack } from "@mui/material";
-import { Game } from "@/store/game";
+import { Game, useGame } from "@/store/game";
 
 type IntroduceProps = {
   data: Game;
 };
 
-const Introduce = ({ data }: IntroduceProps) => {
+const Introduce = () => {
+  const { item: data } = useGame()
   return (
     <Stack overflow="hidden" width="100%" position="relative">
       {!!data?.content && (

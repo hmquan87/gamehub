@@ -5,16 +5,16 @@ import { Stack } from "@mui/material";
 import { Game, useGame } from "@/store/game";
 
 type WrapperProps = {
-  data: Game;
+  // data: Game;
   children: ReactNode;
 };
 
-const Wrapper = ({ data, children }: WrapperProps) => {
-  const { onUpdateGame } = useGame();
+const Wrapper = ({ children }: WrapperProps) => {
+  const { onUpdateGame, item: data } = useGame();
 
-  useEffect(() => {
-    onUpdateGame(data);
-  }, [onUpdateGame, data]);
+  // useEffect(() => {
+  //   onUpdateGame(data!);
+  // }, [onUpdateGame, data]);
 
   return children;
 };

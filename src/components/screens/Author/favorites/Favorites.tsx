@@ -154,7 +154,7 @@ const Item = (props: { item: Game }) => {
                         bgcolor: "grey.500",
                     }}
                 />
-                {item?.rate > 0 && (
+                {(item?.rate ?? 0) > 0 && (
                     <Stack
                         direction="row"
                         alignItems="center"
@@ -165,7 +165,7 @@ const Item = (props: { item: Game }) => {
                         spacing={0.5}
                     >
                         <StarIcon filled sx={{ fontSize: 20, color: "#FFC107" }} />
-                        <Text variant="h4">{item.rate.toFixed(1)}</Text>
+                        <Text variant="h4">{(item.rate ?? 0).toFixed(1)}</Text>
                     </Stack>
                 )}
             </Stack>
@@ -178,16 +178,16 @@ const Item = (props: { item: Game }) => {
                         .map((genre) => GENRE_NAME[genre])
                         .join(", ")}
                     <Text variant="caption" color="inherit">
-                        {item?.genres?.length > MAX_GENRES &&
-                            ` +${item?.genres?.length - MAX_GENRES}`}
+                        {(item?.genres?.length ?? 0) > MAX_GENRES &&
+                            ` +${(item?.genres?.length ?? 0) - MAX_GENRES}`}
                     </Text>
                 </Text>
                 <Stack direction="row" alignItems="center" spacing={0.75}>
-                    {item?.platforms?.map((platform) => {
-                        const Icon = PLATFORM_ICON[platform.platform];
+                    {item?.platforms?.map((platform, index) => {
+                        const Icon = PLATFORM_ICON[platform.platform as GamePlatform];
                         return (
                             <Icon
-                                key={platform.platform}
+                                key={index}
                                 sx={{ fontSize: 18, color: "grey.400" }}
                             />
                         );
@@ -256,7 +256,7 @@ const Data: Game = {
     following: false,
     rates: [],
     content: '',
-    publisher: {} as GamePublisher,
+    publisher: '',
     mediaUrl: []
 
 }

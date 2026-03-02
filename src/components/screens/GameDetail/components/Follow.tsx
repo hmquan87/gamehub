@@ -47,8 +47,8 @@ const Follow = ({ data }: FollowProps) => {
       fullWidth
       submitting={isSubmitting}
       onClick={isConnected ? onToggleFollow : onConnect}
-      sx={{ maxWidth: 200, ...typography.subtitle1 }}
-      css={{ borderRadius: 250, height: 48, bgcolor: "common.white" }}
+      sx={{ maxWidth: 200, color: 'black', ...typography.subtitle1 }}
+      css={{ borderRadius: 250, height: 48, bgcolor: "common.white", color: 'black' }}
       startIcon={<StarIcon filled={Boolean(isConnected && item?.following)} />}
     >
       {isConnected && item?.following ? "Following" : "Follow"}

@@ -40,13 +40,13 @@ export async function generateMetadata({ params }): Promise<Metadata> {
       ...OPEN_GRAPH_CONFIG,
       url: `${DOMAIN}${canonical}`,
       title: data.name,
-      images: [data.logo],
+      // images: [data.logo],
       description: data.shortDescription,
     },
     twitter: {
       ...TWITTER_CONFIG,
       title: data.name,
-      images: [data.logo],
+      // images: [data.logo],
       description: data.shortDescription,
     },
   };
@@ -63,8 +63,8 @@ async function fetchData<T>(
         cache: "no-store",
         headers: accessToken
           ? {
-              Authorization: `Bearer ${accessToken}`,
-            }
+            Authorization: `Bearer ${accessToken}`,
+          }
           : undefined,
       },
     );

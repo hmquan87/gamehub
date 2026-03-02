@@ -40,7 +40,7 @@ type FilterLayoutProps = {
 const FilterLayout = (props: FilterLayoutProps) => {
   const { children } = props;
 
-  const { blogFilters, onGetBlogs, pageSize } = useBlogs();
+  const { blogFilters, pageSize } = useBlogs();
   const queries = useQueryParams() as { search?: string };
 
   const onChangeField = (name: string, value) => {
@@ -50,7 +50,7 @@ const FilterLayout = (props: FilterLayoutProps) => {
       pageSize,
       [name]: value,
     });
-    onGetBlogs(newQueries);
+    // onGetBlogs(newQueries);
     pushState(newQueries);
   };
 
@@ -312,7 +312,7 @@ const TagsBlog = Object.values(TagBlog).map((tag) => ({
 
 
 const Category = () => {
-  const { onGetBlogs, pageSize } = useBlogs();
+  const { pageSize } = useBlogs();
   const onResetFilters = () => {
     const newQueries = cleanObject({
       pageIndex: 1,
@@ -322,7 +322,7 @@ const Category = () => {
       sortBy: undefined,
       ...initialState.blogFilters,
     });
-    onGetBlogs(newQueries);
+    // onGetBlogs(newQueries);
     pushState(newQueries);
   };
 

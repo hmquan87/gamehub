@@ -33,13 +33,13 @@ export async function generateMetadata({ params }): Promise<Metadata> {
       ...OPEN_GRAPH_CONFIG,
       url: `${DOMAIN}${canonical}`,
       title,
-      images: [data.logo],
+      // images: [data.logo],
       description: data.shortDescription,
     },
     twitter: {
       ...TWITTER_CONFIG,
       title,
-      images: [data.logo],
+      // images: [data.logo],
       description: data.shortDescription,
     },
   };

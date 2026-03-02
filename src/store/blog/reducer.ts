@@ -17,18 +17,18 @@ interface Author {
 export interface Blog {
     id: string,
     title: string,
-    content: string,
-    status: Status,
+    content?: string,
+    status?: Status,
     slug: string,
-    type: string,
+    type?: string,
     thumbnailUrl: string,
     publicDate: string,
-    author: Author,
-    metaTitle: string | null,
-    metaDescription: string | null,
-    tags: TagBlog[],
-    authorUrl: string,
-    authorShortDescription: string
+    author?: Author,
+    metaTitle?: string | null,
+    metaDescription?: string | null,
+    tags: string[],
+    authorUrl?: string,
+    authorShortDescription?: string
 }
 
 export interface TagItem {
@@ -46,7 +46,7 @@ export interface BlogState {
     tags: TagItem[],
     tagFilters: Omit<ListTagsQueries, 'pageIndex' | "pageSize">,
     tagPaging: Paging,
-    loadingTags: DataStatus
+    loadingTags: DataStatus,
 }
 
 export const initialState: BlogState = {
@@ -74,41 +74,46 @@ const blogReducer = createSlice({
     name: 'blog',
     initialState,
     reducers: {
+        setBlog: (state, action: PayloadAction<Blog>) => {
+            state.blog = action.payload
+        }
     },
     extraReducers: (builder) => {
         builder
-            .addCase(getBlogs.pending, (state, action) => {
-                state.loading = DataStatus.LOADING
-                state.blogFilters = getFiltersFromQueries(action.meta.arg)
-                state.blogPaging.pageIndex = action.meta.arg.pageIndex;
-                state.error = null
-            })
-            .addCase(getBlogs.fulfilled, (state, action: PayloadAction<ItemListResponse<Blog>>) => {
-                const { items, ...paging } = action.payload;
-                state.loading = DataStatus.SUCCEEDED
-                state.blogs = items
-                state.blogPaging = paging
-                state.error = null
-            })
-            .addCase(getBlogs.rejected, (state, action) => {
-                state.loading = DataStatus.FAILED
-                state.blogPaging.totalItems = undefined
-                state.blogPaging.totalItems = undefined
-                state.error = action?.error?.message || AN_ERROR_TRY_AGAIN;
-            })
-            .addCase(getBlog.pending, state => {
-                state.loading = DataStatus.LOADING
-                state.error = null
-            })
-            .addCase(getBlog.fulfilled, (state, action: PayloadAction<Blog>) => {
-                state.loading = DataStatus.SUCCEEDED
-                state.blog = action.payload
-            })
-            .addCase(getBlog.rejected, (state, action) => {
-                state.loading = DataStatus.FAILED
-                state.error = action?.error?.message || AN_ERROR_TRY_AGAIN;
-            })
+        // .addCase(getBlogs.pending, (state, action) => {
+        //     state.loading = DataStatus.LOADING
+        //     state.blogFilters = getFiltersFromQueries(action.meta.arg)
+        //     state.blogPaging.pageIndex = action.meta.arg.pageIndex;
+        //     state.error = null
+        // })
+        // .addCase(getBlogs.fulfilled, (state, action: PayloadAction<ItemListResponse<Blog>>) => {
+        //     const { items, ...paging } = action.payload;
+        //     state.loading = DataStatus.SUCCEEDED
+        //     state.blogs = items
+        //     state.blogPaging = paging
+        //     state.error = null
+        // })
+        // .addCase(getBlogs.rejected, (state, action) => {
+        //     state.loading = DataStatus.FAILED
+        //     state.blogPaging.totalItems = undefined
+        //     state.blogPaging.totalItems = undefined
+        //     state.error = action?.error?.message || AN_ERROR_TRY_AGAIN;
+        // })
+        // .addCase(getBlog.pending, state => {
+        //     state.loading = DataStatus.LOADING
+        //     state.error = null
+        // })
+        // .addCase(getBlog.fulfilled, (state, action: PayloadAction<Blog>) => {
+        //     state.loading = DataStatus.SUCCEEDED
+        //     state.blog = action.payload
+        // })
+        // .addCase(getBlog.rejected, (state, action) => {
+        //     state.loading = DataStatus.FAILED
+        //     state.error = action?.error?.message || AN_ERROR_TRY_AGAIN;
+        // })
     }
 })
 
+
+export const { setBlog } = blogReducer.actions
 export default blogReducer.reducer

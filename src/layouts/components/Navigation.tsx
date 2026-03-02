@@ -283,12 +283,6 @@ const DATA = [
         Icon: QuestIcon,
       },
       {
-        label: "Battle Pass",
-        description: "Level up to unlock seasonal rewards",
-        href: BATTLE_PASS_PATH,
-        Icon: BattlePassIcon,
-      },
-      {
         label: "Leaderboard",
         description: "Compete and prove you're the best",
         href: LEADERBOARD_PATH,
@@ -306,12 +300,6 @@ const DATA = [
         Icon: StakeIcon,
       },
       {
-        label: "Boosted Yield",
-        description: "Higher rewards for active players",
-        href: CLASSIC_YIELD_PATH,
-        Icon: LeaderboardIcon,
-      },
-      {
         label: "Staking Vault",
         description: "Stake tokens/NFTs to earn rewards",
         href: STAKING_PATH,
@@ -319,55 +307,9 @@ const DATA = [
       },
     ],
   },
-  { label: "Dashboard", href: DASHBOARD_PATH },
-  { label: "Claims", href: CLAIMS_PATH },
   {
-    label: "More",
-    children: [
-      {
-        label: "Product",
-        children: [
-          {
-            label: "News",
-            href: NEWS_PATH,
-            Icon: NewsIcon,
-          },
-          {
-            label: "Analytics",
-            href: CLASSIC_YIELD_PATH,
-            Icon: AnalyticsIcon,
-          },
-          {
-            label: "Learn",
-            href: CLASSIC_YIELD_PATH,
-            Icon: LearnIcon
-          },
-
-        ],
-      },
-      {
-        label: "Resource",
-        children: [
-          {
-            label: "Docs",
-            href: CLASSIC_YIELD_PATH,
-            Icon: MenuIcon,
-            description: "Access documentation",
-          },
-          {
-            label: "Dune",
-            href: CLASSIC_YIELD_PATH,
-            Icon: AnalyticsIcon,
-            description: "Explore Dune data",
-          },
-          {
-            label: "Community (X)",
-            href: X_URL,
-            Icon: NewsIcon,
-            description: "Join the community",
-          },
-        ],
-      },
-    ],
+    label: "News",
+    href: NEWS_PATH,
   },
+
 ];

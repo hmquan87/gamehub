@@ -31,7 +31,7 @@ const Reviews = ({ data }: ReviewsProps) => {
 
   const groupRate = useMemo(
     () =>
-      groupData(game.rates, "score") as unknown as {
+      groupData(game.rates || [], "score") as unknown as {
         [key: number]: GameRate[];
       },
     [game.rates],
@@ -42,7 +42,7 @@ const Reviews = ({ data }: ReviewsProps) => {
       <Text variant="h4">Rating & Reviews</Text>
       <Stack direction="row" alignItems="center" spacing={2}>
         <Stack direction="row" alignItems="center">
-          <Text variant="h1">{game.rate.toFixed(1)}</Text>
+          <Text variant="h1">{(game.rate ?? 0).toFixed(1)}</Text>
           <Text variant="h4" color="grey.400">
             / 5
           </Text>
@@ -54,17 +54,17 @@ const Reviews = ({ data }: ReviewsProps) => {
               rate={5 - index}
               percent={
                 ((groupRate[5 - index]?.length || 0) * 100) /
-                (game.rates.length || 1)
+                ((game.rates?.length) || 1)
               }
             />
           ))}
 
-          <Text variant="body2">{`${game.rates.length} ${game.rates.length === 1 ? "review" : "reviews"}`}</Text>
+          <Text variant="body2">{`${(game.rates?.length) || 0} ${(game.rates?.length) === 1 ? "review" : "reviews"}`}</Text>
         </Stack>
       </Stack>
       <Review gameId={data.id} />
       <Stack width="100%" spacing={2} pt={6}>
-        {game.rates.map((item) => (
+        {game.rates?.map((item) => (
           <Item key={item.userId} item={item} />
         ))}
       </Stack>
