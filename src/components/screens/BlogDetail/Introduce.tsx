@@ -7,6 +7,8 @@ type IntroduceProps = {
 };
 
 const Introduce = ({ data }: IntroduceProps) => {
+    console.log(data.content);
+
     return (
         <Stack overflow="hidden" width="100%" position="relative">
             {!!data?.content && (

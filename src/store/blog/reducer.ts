@@ -17,18 +17,18 @@ interface Author {
 export interface Blog {
     id: string,
     title: string,
-    content: string,
-    status: Status,
+    content?: string,
+    status?: Status,
     slug: string,
-    type: string,
+    type?: string,
     thumbnailUrl: string,
     publicDate: string,
-    author: Author,
-    metaTitle: string | null,
-    metaDescription: string | null,
-    tags: TagBlog[],
-    authorUrl: string,
-    authorShortDescription: string
+    author?: Author,
+    metaTitle?: string | null,
+    metaDescription?: string | null,
+    tags: string[],
+    authorUrl?: string,
+    authorShortDescription?: string
 }
 
 export interface TagItem {

@@ -31,7 +31,7 @@ const Header = (props: HeaderProps) => {
         height={HEADER_HEIGHT}
         minHeight={HEADER_HEIGHT}
         // maxWidth="lg"
-        px={{ lg: 8, md: 6, sm: 4, xs: 2 }}
+        px={{ lg: 8, md: 3, xs: 2 }}
       >
         <Stack direction="row" alignItems="center" spacing={5.75}>
           <Logo />
