@@ -30,11 +30,12 @@ type InformationProps = {
   data: Game;
 };
 
-const Information = ({ data }: InformationProps) => {
+const Information = () => {
+
   const { refCode } = useProfile();
   const { isConnected, onConnect } = useAuthPrivy();
   const { onAddSnackbar } = useSnackbar();
-  const { item, onFollowGame, onUnfollowGame, onUpdateGame } = useGame();
+  const { item: data, onFollowGame, onUnfollowGame, onUpdateGame } = useGame();
 
   const [isShow, onShow, onHide] = useToggle();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
@@ -42,19 +43,19 @@ const Information = ({ data }: InformationProps) => {
   const inviteUrl = useMemo(
     () =>
       DOMAIN +
-      StringFormat(GAME_DETAIL_PATH, { slug: data.slug }) +
+      StringFormat(GAME_DETAIL_PATH, { slug: data?.slug }) +
       (refCode ? `?ref=${refCode}` : ""),
     [refCode],
   );
 
   const onToggleFollow = () => {
     try {
-      if (!item) return;
+      if (!data) return;
       setIsSubmitting(true);
-      if (item?.following) {
-        onUnfollowGame(item.id);
+      if (data?.following) {
+        onUnfollowGame(data.id);
       } else {
-        onFollowGame(item.id);
+        onFollowGame(data.id);
       }
     } catch (error) {
       console.error(error);
@@ -66,6 +67,8 @@ const Information = ({ data }: InformationProps) => {
       setIsSubmitting(false);
     }
   };
+
+  if (!data) return
 
   return (
     <Stack flex={1} spacing={3}>
@@ -91,7 +94,7 @@ const Information = ({ data }: InformationProps) => {
               noHoverEffect
               onClick={isConnected ? onToggleFollow : onConnect}
             >
-              <StarIcon filled={item?.following} sx={{ fontSize: 20 }} />
+              <StarIcon filled={data?.following} sx={{ fontSize: 20 }} />
             </IconButton>
           )}
         </Stack>
@@ -105,7 +108,7 @@ const Information = ({ data }: InformationProps) => {
           ))}
         </Stack>
         <Stack spacing={1.5} width="100%">
-          <InfoItem label="Publisher" value={data?.publisher?.name} />
+          <InfoItem label="Publisher" value={typeof data?.publisher === 'object' ? (data?.publisher as any)?.name : data?.publisher} />
           <InfoItem
             label="Status"
             value={data?.releaseStatus || GameStatus.TBA}
@@ -114,11 +117,12 @@ const Information = ({ data }: InformationProps) => {
             label="Platforms"
             value={
               <Stack direction="row" alignItems="center" spacing={0.75}>
-                {data?.platforms?.map((platform) => {
-                  const Icon = PLATFORM_ICON[platform.platform];
+                {data?.platforms?.map((platform, index) => {
+                  const Icon = PLATFORM_ICON[platform.platform as keyof typeof PLATFORM_ICON];
+                  if (!Icon) return null;
                   return (
                     <Link
-                      key={platform.platform}
+                      key={index}
                       href={platform?.link || "#"}
                       target="_blank"
                     >

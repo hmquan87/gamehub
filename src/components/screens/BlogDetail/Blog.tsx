@@ -173,7 +173,7 @@ const Blog = () => {
     }, [headings]);
 
     const handleClick = () => {
-        push(StringFormat(AUTHOR_CONTENT_PATH, { author: data?.author?.name }))
+        push(StringFormat(AUTHOR_CONTENT_PATH, { author: data?.author?.name ?? 'profile' }))
     }
 
     const handleClickTags = (tags: string) => {

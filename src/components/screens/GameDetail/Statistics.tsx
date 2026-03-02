@@ -18,10 +18,10 @@ type StatisticsProps = {
   data: Game;
 };
 
-const Statistics = ({ data }: StatisticsProps) => {
-  const { item, status } = useGame();
+const Statistics = () => {
+  const { item: game, status } = useGame();
 
-  const game = useMemo(() => item || data, [item, data]);
+  if (!game) return
 
   return (
     <Stack
@@ -32,19 +32,19 @@ const Statistics = ({ data }: StatisticsProps) => {
       gap={2}
     >
       <Item
-        label={`${formatNumber(game.rates.length)} ${game.rates.length === 1 ? "review" : "reviews"}`}
+        label={`${formatNumber(game.rates?.length || 0)} ${game.rates?.length === 1 ? "review" : "reviews"}`}
         component={Link}
         href={StringFormat(GAME_DETAIL_REVIEWS_PATH, { slug: game.slug })}
       >
-        <Text variant="h4">{game.rate.toFixed(1)}</Text>
+        <Text variant="h4">{(game.rate || 0).toFixed(1)}</Text>
         <Stack direction="row" alignItems="center">
           {Array.from(new Array(5)).map((_, index) => (
             <StarIcon
-              filled={index < game.rate}
+              filled={index < game.rate!}
               key={index}
               sx={{
                 fontSize: 12,
-                color: index < game.rate ? "common.white" : "grey.400",
+                color: index < game.rate! ? "common.white" : "grey.400",
               }}
             />
           ))}
@@ -66,7 +66,7 @@ const Statistics = ({ data }: StatisticsProps) => {
       </Item>
       <Item label="Publisher">
         <UserIcon sx={{ fontSize: 20, color: "grey.400" }} />
-        <Text variant="caption">{game.publisher?.name}</Text>
+        <Text variant="caption">{game.publisher}</Text>
       </Item>
     </Stack>
   );

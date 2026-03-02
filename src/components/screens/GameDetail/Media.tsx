@@ -9,17 +9,15 @@ import "swiper/css/navigation";
 import "swiper/css/thumbs";
 
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
-import { Game } from "@/store/game";
+import { Game, useGame } from "@/store/game";
 import { isVideoUrl } from "@/utils";
 import YouTube from "react-youtube";
 
-type MediaProps = {
-  data: Game;
-};
 
-const Media = ({ data }: MediaProps) => {
+
+const Media = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-
+  const { item: data } = useGame()
   const onSwiper = (swiper) => {
     setThumbsSwiper(swiper);
   };

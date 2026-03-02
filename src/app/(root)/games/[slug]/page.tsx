@@ -39,26 +39,26 @@ export async function generateMetadata({ params }): Promise<Metadata> {
       ...OPEN_GRAPH_CONFIG,
       url: `${DOMAIN}${canonical}`,
       title: data.name,
-      images: [data.logo],
+      // images: [data.logo],
       description: data.shortDescription,
     },
     twitter: {
       ...TWITTER_CONFIG,
       title: data.name,
-      images: [data.logo],
+      // images: [data.logo],
       description: data.shortDescription,
     },
   };
 }
 
 export default async function Home({ params }) {
-  const { slug } = await params;
-  const accessToken = await getAccessTokenCookie();
-  const gameData = await fetchEventData(slug, accessToken);
+  // const { slug } = await params;
+  // const accessToken = await getAccessTokenCookie();
+  // const gameData = await fetchEventData(slug, accessToken);
 
-  if (!gameData) {
-    notFound();
-  }
+  // if (!gameData) {
+  //   notFound();
+  // }
 
   return (
     <Stack
@@ -71,11 +71,11 @@ export default async function Home({ params }) {
         maxWidth={{ xs: "100%", md: "66.5%" }}
         spacing={6}
       >
-        <Statistics data={gameData} />
-        <Media data={gameData} />
-        <Introduce data={gameData} />
+        <Statistics />
+        <Media />
+        <Introduce />
       </Stack>
-      <Information data={gameData} />
+      <Information />
     </Stack>
   );
 }

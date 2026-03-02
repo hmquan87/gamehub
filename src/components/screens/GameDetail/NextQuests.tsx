@@ -23,7 +23,9 @@ const NextQuests = ({ data }: NextQuestsProps) => {
   const secondRowData = useMemo(() => items.slice(2, 5), [items]);
 
   useEffect(() => {
-    onGetNextMissionsOfGame(data.slug);
+    if (data.slug) {
+      onGetNextMissionsOfGame(data.slug);
+    }
   }, [onGetNextMissionsOfGame, data.slug]);
 
   if (error || (isSucceeded && items.length === 0)) {

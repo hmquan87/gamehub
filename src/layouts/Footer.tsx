@@ -12,7 +12,7 @@ type FooterProps = {};
 const Footer = (props: FooterProps) => {
   return (
     <Stack component="footer" borderTop="1px solid" borderColor="divider" zIndex={3}>
-      <Stack component={Container} maxWidth="lg">
+      <Stack px={{ lg: 8, md: 3, xs: 2 }}>
         <Stack
           direction={{ xs: "column-reverse", sm: "row" }}
           justifyContent="space-between"
