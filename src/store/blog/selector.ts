@@ -11,13 +11,13 @@ export const useBlogs = () => {
 
     const { loading, error, blogFilters, blog, blogs, blogPaging } = useAppSelector(state => state.blog)
 
-    const onGetBlogs = useCallback((queries: BlogsQueries) => {
-        dispatch(getBlogs(queries))
-    }, [dispatch]);
+    // const onGetBlogs = useCallback((queries: BlogsQueries) => {
+    //     dispatch(getBlogs(queries))
+    // }, [dispatch]);
 
-    const onGetBlog = useCallback((slug: string) => {
-        dispatch(getBlog(slug))
-    }, [dispatch]);
+    // const onGetBlog = useCallback((slug: string) => {
+    //     dispatch(getBlog(slug))
+    // }, [dispatch]);
 
     const onSetBlog = (item: Blog) => {
         dispatch(setBlog(item))
@@ -36,8 +36,8 @@ export const useBlogs = () => {
         loading,
         error,
         ...blogPaging,
-        onGetBlog,
-        onGetBlogs,
+        // onGetBlog,
+        // onGetBlogs,
         onSetBlog
     }
 

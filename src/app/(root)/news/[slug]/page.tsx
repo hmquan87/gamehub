@@ -56,8 +56,8 @@ export default async function Home({ params }) {
   // }
   return (
     <Stack component={Container} spacing={4} maxWidth="lg">
-      <ViewTracking />
-      <UTMTracker />
+      {/* <ViewTracking /> */}
+      {/* <UTMTracker /> */}
       <Stack
         direction={{ xs: "column-reverse", md: "row" }}
         maxWidth={"lg"}

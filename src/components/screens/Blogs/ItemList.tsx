@@ -28,7 +28,6 @@ type ItemListProps = {};
 
 const ItemList = (props: ItemListProps) => {
   const {
-    onGetBlogs,
     blogs,
     totalItems,
     totalPages,

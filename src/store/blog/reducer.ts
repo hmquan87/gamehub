@@ -80,37 +80,37 @@ const blogReducer = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(getBlogs.pending, (state, action) => {
-                state.loading = DataStatus.LOADING
-                state.blogFilters = getFiltersFromQueries(action.meta.arg)
-                state.blogPaging.pageIndex = action.meta.arg.pageIndex;
-                state.error = null
-            })
-            .addCase(getBlogs.fulfilled, (state, action: PayloadAction<ItemListResponse<Blog>>) => {
-                const { items, ...paging } = action.payload;
-                state.loading = DataStatus.SUCCEEDED
-                state.blogs = items
-                state.blogPaging = paging
-                state.error = null
-            })
-            .addCase(getBlogs.rejected, (state, action) => {
-                state.loading = DataStatus.FAILED
-                state.blogPaging.totalItems = undefined
-                state.blogPaging.totalItems = undefined
-                state.error = action?.error?.message || AN_ERROR_TRY_AGAIN;
-            })
-            .addCase(getBlog.pending, state => {
-                state.loading = DataStatus.LOADING
-                state.error = null
-            })
-            .addCase(getBlog.fulfilled, (state, action: PayloadAction<Blog>) => {
-                state.loading = DataStatus.SUCCEEDED
-                state.blog = action.payload
-            })
-            .addCase(getBlog.rejected, (state, action) => {
-                state.loading = DataStatus.FAILED
-                state.error = action?.error?.message || AN_ERROR_TRY_AGAIN;
-            })
+        // .addCase(getBlogs.pending, (state, action) => {
+        //     state.loading = DataStatus.LOADING
+        //     state.blogFilters = getFiltersFromQueries(action.meta.arg)
+        //     state.blogPaging.pageIndex = action.meta.arg.pageIndex;
+        //     state.error = null
+        // })
+        // .addCase(getBlogs.fulfilled, (state, action: PayloadAction<ItemListResponse<Blog>>) => {
+        //     const { items, ...paging } = action.payload;
+        //     state.loading = DataStatus.SUCCEEDED
+        //     state.blogs = items
+        //     state.blogPaging = paging
+        //     state.error = null
+        // })
+        // .addCase(getBlogs.rejected, (state, action) => {
+        //     state.loading = DataStatus.FAILED
+        //     state.blogPaging.totalItems = undefined
+        //     state.blogPaging.totalItems = undefined
+        //     state.error = action?.error?.message || AN_ERROR_TRY_AGAIN;
+        // })
+        // .addCase(getBlog.pending, state => {
+        //     state.loading = DataStatus.LOADING
+        //     state.error = null
+        // })
+        // .addCase(getBlog.fulfilled, (state, action: PayloadAction<Blog>) => {
+        //     state.loading = DataStatus.SUCCEEDED
+        //     state.blog = action.payload
+        // })
+        // .addCase(getBlog.rejected, (state, action) => {
+        //     state.loading = DataStatus.FAILED
+        //     state.error = action?.error?.message || AN_ERROR_TRY_AGAIN;
+        // })
     }
 })
 

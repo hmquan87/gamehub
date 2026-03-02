@@ -33,7 +33,7 @@ const Blog = () => {
     const [size, setSize] = useState<{ width: number; height: number } | null>(
         null,
     );
-    const { blogs, onGetBlogs } = useBlogs();
+    const { blogs } = useBlogs();
     const { push } = useRouter()
     const [isShow, onShow, onHide] = useToggle();
     const inviteUrl = useMemo(
@@ -45,15 +45,15 @@ const Blog = () => {
     );
 
 
-    useEffect(() => {
-        if (data) {
-            onGetBlogs({
-                pageIndex: 1,
-                pageSize: 10,
-                tags: data?.tags?.join(";") ?? '',
-            });
-        }
-    }, [data])
+    // useEffect(() => {
+    //     if (data) {
+    //         onGetBlogs({
+    //             pageIndex: 1,
+    //             pageSize: 10,
+    //             tags: data?.tags?.join(";") ?? '',
+    //         });
+    //     }
+    // }, [data])
 
     useEffect(() => {
         const url = data.thumbnailUrl;
