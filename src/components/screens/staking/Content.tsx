@@ -6,6 +6,7 @@ import CardStaking, { StakingState } from "./CardStaking";
 import useToggle from "@/hooks/useToggle";
 import useAuthPrivy from "@/hooks/useAuthPrivy";
 import { Text } from "@/components/shared";
+import FadeStack from "@/components/FadeStack";
 
 const Content = () => {
   const [option, setOption] = useState<string>("live");
@@ -78,17 +79,22 @@ const Content = () => {
         }}
         gap={{ md: 5, xs: 3 }}
       >
-        {Staking.map((item) => (
-          <CardStaking
+        {Staking.map((item, index) => (
+          <FadeStack
             key={item.id}
-            data={item}
-            connected={isConnected ? isConnected : false}
-            onclick={() => handleClick(item.id)}
-            loading={loadingId === item.id}
-            open={open}
-            setOpen={setOpen}
-            setLoadingId={setLoadingId}
-          />
+            duration={(index + 0.5) * 0.1}
+            type="opacity-in"
+          >
+            <CardStaking
+              data={item}
+              connected={isConnected ? isConnected : false}
+              onclick={() => handleClick(item.id)}
+              loading={loadingId === item.id}
+              open={open}
+              setOpen={setOpen}
+              setLoadingId={setLoadingId}
+            />
+          </FadeStack>
         ))}
       </Stack>
     </Stack>

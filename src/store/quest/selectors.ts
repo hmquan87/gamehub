@@ -9,6 +9,7 @@ import {
   getQuests,
   QuestQueries,
 } from "./actions";
+import { Quest, setQuest } from "./reducer";
 
 export const useQuests = () => {
   const dispatch = useAppDispatch();
@@ -19,11 +20,16 @@ export const useQuests = () => {
     questItemsFilters: filters,
     questItemsPaging: paging,
     questItemsError: error,
+    questDetail
   } = useAppSelector((state) => state.quest, shallowEqual);
 
   const isIdle = useMemo(() => status === DataStatus.IDLE, [status]);
   const isFetching = useMemo(() => status === DataStatus.LOADING, [status]);
   const isSucceeded = useMemo(() => status === DataStatus.SUCCEEDED, [status]);
+
+  const onSetQuest = (data: Quest) => {
+    dispatch(setQuest(data))
+  }
 
   const onGetQuests = useCallback(
     (queries: QuestQueries) => {
@@ -37,11 +43,13 @@ export const useQuests = () => {
     status,
     error,
     filters,
+    questDetail,
     ...paging,
     isIdle,
     isFetching,
     isSucceeded,
     onGetQuests,
+    onSetQuest
   };
 };
 

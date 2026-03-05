@@ -23,6 +23,7 @@ import {
 } from "./helpers";
 import { DEFAULT_PAGE_SIZE } from "@/constant";
 import { useParams, usePathname, useRouter } from "next/navigation";
+import FadeStack from "@/components/FadeStack";
 
 type ItemListProps = {};
 
@@ -201,10 +202,12 @@ const ItemList = (props: ItemListProps) => {
               gap={3}
             >
               {DATA_BLOG?.map((item, itemIndex) =>
-                <Item key={itemIndex} item={item}
-                  // onclick={handleClickTags} 
-                  onclick={handleBlog}
-                />
+                <FadeStack key={`${itemIndex}-${item.id}`} type="opacity-in" duration={(itemIndex + 0.1) * 0.2}>
+                  <Item item={item}
+                    // onclick={handleClickTags} 
+                    onclick={handleBlog}
+                  />
+                </FadeStack>
               )}
             </Stack>
 

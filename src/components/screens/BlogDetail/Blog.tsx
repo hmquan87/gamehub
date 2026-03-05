@@ -279,7 +279,7 @@ const Blog = () => {
                                 gap={2}
                                 alignItems={'center'}
                             >
-                                {data.tags.map((item, index) => {
+                                {data?.tags?.map((item, index) => {
                                     return <Chip fontSize={14} fontWeight={600} key={index} title={item} onclick={() => handleClickTags(item)} />
                                 })}
                             </Stack>
@@ -347,7 +347,7 @@ const Blog = () => {
                                 width={44}
                             >
                                 <Image
-                                    src={data?.author?.avatar}
+                                    src={'https://r2.gamebasis.xyz/app/4e803a7204c14b7d95cf92bb16f4685d_1765169732706_Screenshot%202025-12-08%20115510.png'}
                                     alt={'Larc'}
                                     fill
                                     aspectRatio={1 / 1}

@@ -12,36 +12,57 @@ import UTMTracker from "@/components/screens/BlogDetail/UTMTracker";
 import ViewTracking from "@/components/screens/BlogDetail/ViewTracking";
 
 export async function generateMetadata({ params }): Promise<Metadata> {
-  const { slug } = await params;
+  // const { slug } = await params;
 
-  const data = await fetchData<TypeBlog>(slug);
+  // const data = await fetchData<TypeBlog>(slug);
 
-  if (!data?.id) {
-    return {
-      title: slug,
-    };
-  }
+  // if (!data?.id) {
+  //   return {
+  //     title: slug,
+  //   };
+  // }
 
-  const canonical = StringFormat(NEW_DETAIL_PATH, { slug });
+  // const canonical = StringFormat(NEW_DETAIL_PATH, { slug });
+
+  // return {
+  //   title: data.title,
+  //   description: data.metaDescription,
+  //   alternates: {
+  //     canonical,
+  //   },
+  //   openGraph: {
+  //     ...OPEN_GRAPH_CONFIG,
+  //     url: `${DOMAIN}${canonical}`,
+  //     title: data.title,
+  //     images: [data.thumbnailUrl],
+  //     description: data.metaDescription ?? "",
+  //   },
+  //   twitter: {
+  //     ...TWITTER_CONFIG,
+  //     title: data.title,
+  //     images: [data.thumbnailUrl],
+  //     description: data.metaDescription ?? "",
+  //   },
+  // };
 
   return {
-    title: data.title,
-    description: data.metaDescription,
+    title: 'Title Blog',
+    description: 'Description',
     alternates: {
-      canonical,
+      canonical: '/'
     },
     openGraph: {
       ...OPEN_GRAPH_CONFIG,
-      url: `${DOMAIN}${canonical}`,
-      title: data.title,
-      images: [data.thumbnailUrl],
-      description: data.metaDescription ?? "",
+      url: ``,
+      title: 'title',
+      images: ['https://r2.gamebasis.xyz/app/a6a3fdea512e38803c84d2a0352218c0_1766050255145_photo_2025-12-18_16-27-27.jpg'],
+      description: "",
     },
     twitter: {
       ...TWITTER_CONFIG,
-      title: data.title,
-      images: [data.thumbnailUrl],
-      description: data.metaDescription ?? "",
+      title: 'title',
+      images: [`https://r2.gamebasis.xyz/app/a6a3fdea512e38803c84d2a0352218c0_1766050255145_photo_2025-12-18_16-27-27.jpg`],
+      description: "",
     },
   };
 }

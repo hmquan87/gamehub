@@ -16,6 +16,7 @@ import { useSnackbar } from "@/store/app";
 import { getMessageError, sleep } from "@/utils";
 import { erc20Abi, Hex, parseEther } from "viem";
 import swapUSDGAbi from "@/assets/SwapUSDG.json";
+import { WalletStatus } from "@/contexts/AuthProvider";
 
 type ExchangeProps = {};
 
@@ -33,7 +34,7 @@ enum Step {
 
 const Exchange = (props: ExchangeProps) => {
   const { tokensBalance, onGetTokenBalance } = useBalances();
-  const { isConnected, onConnect, address, publicClient, walletClient } =
+  const { status, onConnect, address, publicClient, walletClient } =
     useAuthPrivy();
   const { onAddSnackbar } = useSnackbar();
 
@@ -45,17 +46,17 @@ const Exchange = (props: ExchangeProps) => {
     () =>
       tab === Tab.MINT
         ? [
-            USDT_CONTRACT,
-            USDG_CONTRACT,
-            TOKEN_SYMBOL_BY_ADDRESS[USDT_CONTRACT],
-            TOKEN_SYMBOL_BY_ADDRESS[USDG_CONTRACT],
-          ]
+          USDT_CONTRACT,
+          USDG_CONTRACT,
+          TOKEN_SYMBOL_BY_ADDRESS[USDT_CONTRACT],
+          TOKEN_SYMBOL_BY_ADDRESS[USDG_CONTRACT],
+        ]
         : [
-            USDG_CONTRACT,
-            USDT_CONTRACT,
-            TOKEN_SYMBOL_BY_ADDRESS[USDG_CONTRACT],
-            TOKEN_SYMBOL_BY_ADDRESS[USDT_CONTRACT],
-          ],
+          USDG_CONTRACT,
+          USDT_CONTRACT,
+          TOKEN_SYMBOL_BY_ADDRESS[USDG_CONTRACT],
+          TOKEN_SYMBOL_BY_ADDRESS[USDT_CONTRACT],
+        ],
     [tab],
   );
 
@@ -205,13 +206,13 @@ const Exchange = (props: ExchangeProps) => {
             py={1.5}
             {...(tab === item.value
               ? {
-                  borderRight: index === 0 ? "1px solid" : undefined,
-                  borderLeft: index === 1 ? "1px solid" : undefined,
-                  color: "primary.main",
-                }
+                borderRight: index === 0 ? "1px solid" : undefined,
+                borderLeft: index === 1 ? "1px solid" : undefined,
+                color: "primary.main",
+              }
               : {
-                  borderBottom: "1px solid",
-                })}
+                borderBottom: "1px solid",
+              })}
             borderColor="divider"
           >
             <Text variant="h5" color="inherit">
@@ -242,13 +243,12 @@ const Exchange = (props: ExchangeProps) => {
 
         <Button
           size="large"
-          disabled={isConnected && (!!error || !amount)}
-          submitting={isSubmitting}
-          onClick={isConnected ? onExchange : onConnect}
+          disabled={status === WalletStatus.CONNECTED && (!!error || !amount)}
+          onClick={status === WalletStatus.CONNECTED ? onExchange : onConnect}
           variant="contained"
           fullWidth
         >
-          {isConnected ? error || step : "Connect Wallet"}
+          {status === WalletStatus.CONNECTED ? error || step : "Connect Wallet"}
         </Button>
       </Stack>
     </Stack>

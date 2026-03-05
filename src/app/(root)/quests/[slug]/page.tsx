@@ -95,19 +95,19 @@ async function fetchQuestData(slug: string, accessToken?: string) {
 }
 
 export default async function Home({ params }) {
-  const { slug } = await params;
-  const accessToken = await getAccessTokenCookie();
-  const questData = await fetchQuestData(slug, accessToken);
+  // const { slug } = await params;
+  // const accessToken = await getAccessTokenCookie();
+  // const questData = await fetchQuestData(slug, accessToken);
 
-  if (!questData) {
-    notFound();
-  }
+  // if (!questData) {
+  //   notFound();
+  // }
 
   return (
     <Container maxWidth="lg">
       <Stack minHeight={MIN_HEIGHT_CONTENT} pb={10} pt={5} spacing={4}>
-        <Introduce data={questData} />
-        <ItemList data={questData} />
+        <Introduce />
+        <ItemList />
       </Stack>
     </Container>
   );

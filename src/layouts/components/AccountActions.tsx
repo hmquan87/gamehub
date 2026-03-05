@@ -1,6 +1,6 @@
 "use client";
 
-import { memo, useMemo, useState } from "react";
+import { memo, useEffect, useMemo, useState } from "react";
 import { Button, Text } from "@/components/shared";
 import { WalletStatus } from "@/contexts/AuthProvider";
 import useAuthPrivy from "@/hooks/useAuthPrivy";
@@ -88,7 +88,7 @@ const AccountActions = () => {
     setAnchorEl(null);
   };
 
-  if (isConnected && status === WalletStatus.CONNECTED) {
+  if (status === WalletStatus.CONNECTED) {
     return (
       <>
         <Stack
@@ -198,15 +198,15 @@ const AccountActions = () => {
                   key={item.label}
                   {...(item.href
                     ? {
-                        component: Link,
-                        href: item.href,
-                        target: getTargetLink(item.href),
-                        onClick: onClose,
-                      }
+                      component: Link,
+                      href: item.href,
+                      target: getTargetLink(item.href),
+                      onClick: onClose,
+                    }
                     : {
-                        component: ButtonBase,
-                        onClick: onSelect(item),
-                      })}
+                      component: ButtonBase,
+                      onClick: onSelect(item),
+                    })}
                   direction="row"
                   alignItems="center"
                   justifyContent="flex-start"
@@ -242,7 +242,7 @@ const AccountActions = () => {
   return (
     <Button
       variant="contained"
-      pending={status !== WalletStatus.DISCONNECTED}
+      pending={status === WalletStatus.CONNECTING}
       submitting={status === WalletStatus.SIGNING}
       textSubmitting="Signing"
       onClick={onConnect}

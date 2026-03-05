@@ -38,78 +38,82 @@ const Overview = (props: OverviewProps) => {
       />
 
       <Container maxWidth="lg" sx={{ position: "relative" }}>
-        <Stack spacing={3} maxWidth={620}>
-          <Text
-            variant="h2"
-            component="h1"
-            fontSize={{ xs: "1.8rem", md: "2.7rem" }}
-            textTransform="capitalize"
-            lineHeight={1.2}
-            zIndex={1}
-          >
-            New financial layer
-            <br />
-            for gamers and game studio
-          </Text>
+        <FadeStack type="opacity-in" duration={1}>
 
-          <Text
-            color="grey.400"
-            maxWidth={720}
-            variant={{ xs: "subtitle2", md: "subtitle1" }}
-            zIndex={1}
-          >
-            A modern financial layer for gamers and studios, where playing earns
-            tokens, NFTs, and yield rewards, while boosting engagement and
-            sustainable revenue.
-          </Text>
-
-          <Stack
-            direction="row"
-            width="100%"
-            maxWidth={400}
-            pt={4}
-            alignItems="center"
-            spacing={2}
-          >
-            <Button
-              variant="contained"
-              // css={{ bgcolor: "common.white" }}
-              fullWidth
-              LinkComponent={Link}
-              href="https://google.com.vn"
-              target="_blank"
-              size="large"
-              sx={{ ...typography.h5 }}
+          <Stack spacing={3} maxWidth={620}>
+            <Text
+              variant="h2"
+              component="h1"
+              fontSize={{ xs: "1.8rem", md: "2.7rem" }}
+              textTransform="capitalize"
+              lineHeight={1.2}
+              zIndex={1}
             >
-              Wishlist
-            </Button>
-            <Button
-              variant="outlined"
-              fullWidth
-              size="large"
-              LinkComponent={Link}
-              target="_blank"
-              href={JOIN_PARTNER_URL}
-              sx={{
-                ...typography.h5,
-                borderWidth: 2,
-                "&:hover": {
-                  [`& .${buttonClasses.endIcon}`]: {
-                    transform: "unset",
-                    transition: "transform 0.15s",
+              New financial layer
+              <br />
+              for gamers and game studio
+            </Text>
+
+            <Text
+              color="grey.400"
+              maxWidth={720}
+              variant={{ xs: "subtitle2", md: "subtitle1" }}
+              zIndex={1}
+            >
+              A modern financial layer for gamers and studios, where playing earns
+              tokens, NFTs, and yield rewards, while boosting engagement and
+              sustainable revenue.
+            </Text>
+
+            <Stack
+              direction="row"
+              width="100%"
+              maxWidth={400}
+              pt={4}
+              alignItems="center"
+              spacing={2}
+            >
+              <Button
+                variant="contained"
+                // css={{ bgcolor: "common.white" }}
+                fullWidth
+                LinkComponent={Link}
+                href="https://google.com.vn"
+                target="_blank"
+                size="large"
+                sx={{ ...typography.h5 }}
+              >
+                Wishlist
+              </Button>
+              <Button
+                variant="outlined"
+                fullWidth
+                size="large"
+                LinkComponent={Link}
+                target="_blank"
+                href={JOIN_PARTNER_URL}
+                sx={{
+                  ...typography.h5,
+                  borderWidth: 2,
+                  "&:hover": {
+                    [`& .${buttonClasses.endIcon}`]: {
+                      transform: "unset",
+                      transition: "transform 0.15s",
+                    },
                   },
-                },
-                [`& .${buttonClasses.endIcon}`]: {
-                  transform: "rotate(-45deg)",
-                },
-              }}
-              css={{ color: "common.white" }}
-              endIcon={<ArrowShortIcon />}
-            >
-              Work with us
-            </Button>
+                  [`& .${buttonClasses.endIcon}`]: {
+                    transform: "rotate(-45deg)",
+                  },
+                }}
+                css={{ color: "common.white" }}
+                endIcon={<ArrowShortIcon />}
+              >
+                Work with us
+              </Button>
+            </Stack>
           </Stack>
-        </Stack>
+        </FadeStack>
+
       </Container>
     </Stack>
   );
