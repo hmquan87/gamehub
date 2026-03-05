@@ -3,7 +3,7 @@
 import { memo, useMemo } from "react";
 import { Stack } from "@mui/material";
 import { Button, Text } from "@/components/shared";
-import { Quest } from "@/store/quest";
+import { Quest, useQuests } from "@/store/quest";
 import { formatTimestamp, TAG_COLOR_STATUS } from "../Quests/helpers";
 import Share from "@/components/Share";
 import ShareIcon from "@/icons/ShareIcon";
@@ -19,8 +19,10 @@ type IntroduceProps = {
   data: Quest;
 };
 
-const Introduce = ({ data }: IntroduceProps) => {
-  const { refCode } = useProfile();
+const Introduce = () => {
+  // const { refCode } = useProfile();
+
+  const { questDetail: data } = useQuests()
 
   const [isShow, onShow, onHide] = useToggle();
   const now = useNow(1000);
@@ -35,12 +37,19 @@ const Introduce = ({ data }: IntroduceProps) => {
     [data.endTime, now],
   );
 
+  // const inviteUrl = useMemo(
+  //   () =>
+  //     DOMAIN +
+  //     StringFormat(QUEST_DETAIL_PATH, { slug: data.slug }) +
+  //     (refCode ? `?ref=${refCode}` : ""),
+  //   [refCode, data.slug],
+  // );
+
   const inviteUrl = useMemo(
     () =>
       DOMAIN +
-      StringFormat(QUEST_DETAIL_PATH, { slug: data.slug }) +
-      (refCode ? `?ref=${refCode}` : ""),
-    [refCode, data.slug],
+      StringFormat(QUEST_DETAIL_PATH, { slug: data.slug }),
+    [data.slug],
   );
 
   return (
@@ -71,11 +80,10 @@ const Introduce = ({ data }: IntroduceProps) => {
             color={`${TAG_COLOR_STATUS[data.status]}.main`}
             bgcolor={`${TAG_COLOR_STATUS[data.status]}.darkChannel`}
           >
-            {`${data.status} • ${
-              isEnded
-                ? "Ended"
-                : `${isUpcoming ? "Starts in" : "Ends in"} ${formatTimestamp(new Date(isUpcoming ? data.startTime : data.endTime).getTime() - now)}`
-            }`}
+            {`${data.status} • ${isEnded
+              ? "Ended"
+              : `${isUpcoming ? "Starts in" : "Ends in"} ${formatTimestamp(new Date(isUpcoming ? data.startTime : data.endTime).getTime() - now)}`
+              }`}
           </Text>
           <Button
             variant="contained"

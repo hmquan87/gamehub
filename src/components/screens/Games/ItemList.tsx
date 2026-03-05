@@ -29,6 +29,7 @@ import useQueryParams from "@/hooks/useQueryParams";
 import useAuthPrivy from "@/hooks/useAuthPrivy";
 import StarIcon from "@/icons/StarIcon";
 import { useSnackbar } from "@/store/app";
+import FadeStack from "@/components/FadeStack";
 
 type ItemListProps = {};
 
@@ -144,7 +145,7 @@ const ItemList = (props: ItemListProps) => {
             />
           ))
         ) : (
-          DATA_GAMES.map((item, itemIndex) => <Item key={itemIndex} item={item} />)
+          DATA_GAMES.map((item, itemIndex) => <FadeStack key={`${itemIndex}-${item.id}`} type="opacity-in" duration={(itemIndex + 0.1) * 0.2}><Item item={item} /></FadeStack>)
         )}
       </Stack>
       {/* {Number(totalPages) > 1 && (
@@ -287,7 +288,7 @@ const Item = (props: { item: Game }) => {
           </Text>
         </Text>
         <Stack direction="row" alignItems="center" spacing={0.75}>
-          {item?.platforms?.map((platform,index) => {
+          {item?.platforms?.map((platform, index) => {
             const Icon = PLATFORM_ICON[platform.platform as keyof typeof PLATFORM_ICON];
             if (!Icon) return null;
             return (

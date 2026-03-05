@@ -20,7 +20,7 @@ import enUSLocale from "date-fns/locale/en-US";
 export const formatDate = (dateString: string | Date): string => {
   const date = typeof dateString === "string" ? new Date(dateString) : dateString;
 
-  if (isNaN(date.getTime())) return "Invalid Date";
+  if (!date || isNaN(date.getTime())) return "Invalid Date";
 
   return new Intl.DateTimeFormat("en-US", {
     month: "short",

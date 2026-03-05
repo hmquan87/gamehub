@@ -1,21 +1,23 @@
 "use client";
 
-import { Fragment, memo, useEffect, useMemo } from "react";
+import { Fragment, memo, useEffect, useMemo, useState } from "react";
 import { Box, Skeleton, Stack } from "@mui/material";
 import { Text } from "@/components/shared";
 import { formatNumber, getTargetLink } from "@/utils";
 import { getIconByType, IMAGE_BY_REWARD } from "../Quests/helpers";
 import Image from "next/image";
-import { initialState, Mission, Quest, useMissions } from "@/store/quest";
+import { initialState, Mission, Quest, useMissions, useQuests } from "@/store/quest";
 import ArrowPerformanceIcon from "@/icons/ArrowPerformanceIcon";
 import { useParams } from "next/navigation";
 import Link from "@/components/Link";
+import { QuestType } from "@/constant/enum";
+import FadeStack from "@/components/FadeStack";
 
 type ItemListProps = {
   data: Quest;
 };
 
-const ItemList = ({ data }: ItemListProps) => {
+const ItemList = () => {
   const {
     onGetMissions,
     items,
@@ -29,11 +31,25 @@ const ItemList = ({ data }: ItemListProps) => {
     isIdle,
     missionCompleted = 0,
   } = useMissions();
+
+
+  const { questDetail: data } = useQuests()
+
+
   const { slug } = useParams() as { slug: string };
 
+  // useEffect(() => {
+  //   onGetMissions(slug, initialState.missionItemsPaging);
+  // }, [onGetMissions, slug]);
+
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+
   useEffect(() => {
-    onGetMissions(slug, initialState.missionItemsPaging);
-  }, [onGetMissions, slug]);
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 1000)
+  }, [])
+
 
   return (
     <Stack flex={1} width="100%" spacing={2}>
@@ -49,7 +65,7 @@ const ItemList = ({ data }: ItemListProps) => {
             •
           </Text>
           <Stack direction="row" mt={4} alignItems="center" spacing={1}>
-            {Object.entries(data.questRewards).map(([key, value], index) => (
+            {data.questRewards && Object.entries(data.questRewards).map(([key, value], index) => (
               <Fragment key={key}>
                 {index !== 0 && (
                   <Text variant="caption" fontWeight={500}>
@@ -82,7 +98,7 @@ const ItemList = ({ data }: ItemListProps) => {
             minWidth={250}
           >
             <Box
-              width={`${(missionCompleted * 100) / (totalItems || 1)}%`}
+              width={`${(0 * 100) / 3}%`}
               height="100%"
               bgcolor="primary.main"
             />
@@ -98,7 +114,7 @@ const ItemList = ({ data }: ItemListProps) => {
             minWidth="fit-content"
             bgcolor="primary.darkChannel"
           >
-            {formatNumber(missionCompleted)} / {formatNumber(totalItems)}
+            {formatNumber(0)} / {formatNumber(3)}
           </Text>
         </Stack>
       </Stack>
@@ -112,7 +128,7 @@ const ItemList = ({ data }: ItemListProps) => {
         }}
         gap={1}
       >
-        {error || (isSucceeded && totalItems === 0) ? (
+        {/* {error || (isSucceeded && totalItems === 0) ? (
           <Stack
             flex={1}
             justifyContent="center"
@@ -139,6 +155,20 @@ const ItemList = ({ data }: ItemListProps) => {
           ))
         ) : (
           items.map((item, itemIndex) => <Item key={item.id} item={item} />)
+        )} */}
+
+        {isLoading ? (
+          Array.from(new Array(6)).map((_, index) => (
+            <Skeleton
+              key={index}
+              sx={{ borderRadius: 2 }}
+              variant="rounded"
+              width="100%"
+              height={80}
+            />
+          ))
+        ) : (
+          DATA_TASK.map((item, itemIndex) => <FadeStack key={`${itemIndex}-${item.id}`} type="opacity-in" duration={(itemIndex + 0.1) * 0.2}><Item item={item} /></FadeStack>)
         )}
       </Stack>
     </Stack>
@@ -207,3 +237,76 @@ const Item = ({ item }: { item: Mission }) => {
     </Stack>
   );
 };
+
+
+const DATA_TASK: Mission[] = [
+  {
+    "id": "81b4ce31-ee23-4050-a08e-bc8314c0b0e6",
+    "title": "Follow X",
+    "description": "Follow X",
+    "status": 1,
+    "mode": "ONE_TIME",
+    "url": "https://x.com/",
+    "rewards": [
+      {
+        "type": "EXP",
+        "amount": 25
+      }
+    ],
+    "startTime": "2025-12-01T10:22:49.000Z",
+    "endTime": "2026-12-09T10:22:49.000Z",
+    "logo": "https://r2.gamebasis.xyz/app/2f9290f2af63baf5930c05cda47856e2_1766657076854_wherewindmeet.jpg",
+    "groupId": "6a5147ff-355a-4ae3-8a54-2e6a188d59c7",
+    "seasonId": "a0b0787c-1d24-40ad-968f-cd68d5200c44",
+    "gameId": "7263a19c-05e9-4823-9b50-39ba2934b871",
+    "type": QuestType.FOLLOW_X,
+    "isCompleted": false,
+    "hasClaimedReward": false
+  },
+  {
+    "id": "96ef37d9-4005-4c93-9bf8-ba284e9130a8",
+    "title": "Like post on X",
+    "description": "Like post on X",
+    "status": 1,
+    "mode": "ONE_TIME",
+    "url": "https://x.com/",
+    "rewards": [
+      {
+        "type": "EXP",
+        "amount": 25
+      }
+    ],
+    "startTime": "2025-12-01T10:22:49.000Z",
+    "endTime": "2026-12-09T10:22:49.000Z",
+    "logo": "https://r2.gamebasis.xyz/app/e4ef97e799f6693b4da59b33b0efcd7a_1766714960551_Screenshot%202025-12-26%20090855.png",
+    "groupId": "6a5147ff-355a-4ae3-8a54-2e6a188d59c7",
+    "seasonId": "a0b0787c-1d24-40ad-968f-cd68d5200c44",
+    "gameId": "7263a19c-05e9-4823-9b50-39ba2934b871",
+    "type": QuestType.LIKE_POST_X,
+    "isCompleted": false,
+    "hasClaimedReward": false
+  },
+  {
+    "id": "e941d075-6070-4ae5-ab20-98b4bb89d9ad",
+    "title": "Join Telegram",
+    "description": "Join Telegram",
+    "status": 1,
+    "mode": "ONE_TIME",
+    "url": "https://web.telegram.org",
+    "rewards": [
+      {
+        "type": "EXP",
+        "amount": 25
+      }
+    ],
+    "startTime": "2025-12-01T10:22:49.000Z",
+    "endTime": "2026-12-09T10:22:49.000Z",
+    "logo": "https://r2.gamebasis.xyz/app/6299f3526c424504de204a8d79459f59_1766715207802_Screenshot%202025-12-26%20091259.png",
+    "groupId": "6a5147ff-355a-4ae3-8a54-2e6a188d59c7",
+    "seasonId": "a0b0787c-1d24-40ad-968f-cd68d5200c44",
+    "gameId": "7263a19c-05e9-4823-9b50-39ba2934b871",
+    "type": QuestType.JOIN_CHAT_TELEGRAM,
+    "isCompleted": false,
+    "hasClaimedReward": false
+  }
+]

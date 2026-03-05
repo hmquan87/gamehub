@@ -74,7 +74,7 @@ const AuthProvider = (props: AuthProviderProps) => {
   const { children, authData } = props;
 
   const { wallets, ready } = useWallets();
-  const { onGetProfile, id, onUpdateProfile } = useProfile();
+  const { id, onUpdateProfile } = useProfile();
   const { onAddSnackbar } = useSnackbar();
   const queries = useQueryParams();
 
@@ -156,6 +156,7 @@ const AuthProvider = (props: AuthProviderProps) => {
         const _walletClient = getWalletClient(wallet.address, privyProvider);
         const _chainId = await _walletClient.getChainId();
         setStatus(WalletStatus.SIGNING);
+
         const signature = await _walletClient.signMessage({
           message: 'signmessage',
           account: wallet.address as Hex,
@@ -176,9 +177,10 @@ const AuthProvider = (props: AuthProviderProps) => {
         onDisconnect();
       } finally {
         isConnectingRef.current = false;
+        setStatus(WalletStatus.CONNECTED);
       }
     },
-    [onAddSnackbar, onDisconnect, onGetProfile],
+    [onAddSnackbar, onDisconnect],
   );
 
   const onReconnect = useCallback(async () => {
@@ -209,7 +211,7 @@ const AuthProvider = (props: AuthProviderProps) => {
         setClientType(connectedWallet.walletClientType);
         setStatus(WalletStatus.CONNECTED);
 
-        onGetProfile(authDataRef.current.token);
+        // onGetProfile(authDataRef.current.token);
       } else {
         isConnectingRef.current = false;
         onAuth({ wallet: connectedWallet });
@@ -219,7 +221,7 @@ const AuthProvider = (props: AuthProviderProps) => {
     } finally {
       isConnectingRef.current = false;
     }
-  }, [ready, connectedWallet, onGetProfile, onAuth, onDisconnect]);
+  }, [ready, connectedWallet, onAuth, onDisconnect]);
 
   const { connectWallet } = useConnectWallet({
     onSuccess: onAuth,

@@ -26,24 +26,26 @@ export interface Quest {
   slug: string;
   endTime: string;
   startTime: string;
-  status: QuestStatus;
+  status: string;
   shortDescription: string;
   logo: string;
-
+  description: string,
   questCount: number;
-  questRewards: { [key in RewardType]: number };
+  questRewards: { [key in string]: number };
   questCompleted: number;
+  thumbnail: string,
+  banner: string,
 }
 
 export interface Mission {
   id: string;
   title: string;
   description: string;
-  status: QuestStatus;
-  mode: QuestMode;
+  status: number;
+  mode: string;
   url: string;
   rewards: {
-    type: RewardType;
+    type: string;
     amount: number;
   }[];
   startTime: string;
@@ -54,6 +56,7 @@ export interface Mission {
   type: QuestType;
   isCompleted: boolean;
   hasClaimedReward: boolean;
+  groupId: string
 }
 
 export interface QuestState {
@@ -72,6 +75,7 @@ export interface QuestState {
   nextMissionItems: Mission[];
   nextMissionItemsStatus: DataStatus;
   nextMissionItemsError?: string;
+  questDetail: Quest
 }
 
 export const initialState: QuestState = {
@@ -86,12 +90,17 @@ export const initialState: QuestState = {
 
   nextMissionItems: [],
   nextMissionItemsStatus: DataStatus.IDLE,
+  questDetail: {} as Quest
 };
 
 const questSlice = createSlice({
   name: "quest",
   initialState,
-  reducers: {},
+  reducers: {
+    setQuest: (state, action: PayloadAction<Quest>) => {
+      state.questDetail = action.payload
+    }
+  },
 
   extraReducers: (builder) => {
     builder
@@ -171,3 +180,4 @@ const questSlice = createSlice({
 });
 
 export default questSlice.reducer;
+export const { setQuest } = questSlice.actions

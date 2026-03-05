@@ -10,6 +10,7 @@ import {
 } from "@/components/screens/ClassicYield";
 import { Text } from "@/components/shared";
 import { TOKEN_SYMBOL_BY_ADDRESS, USDG_CONTRACT } from "@/constant";
+import FadeStack from "@/components/FadeStack";
 
 export const metadata: Metadata = generateMetadata(
   "Classic Yield",
@@ -24,21 +25,28 @@ export default async function Home() {
         justifyContent="space-between"
         spacing={4}
       >
-        <Introduce />
-        <Exchange />
+        <FadeStack type='left' duration={0.6}>
+          <Introduce />
+        </FadeStack>
+        <FadeStack type='right' duration={0.6}>
+          <Exchange />
+        </FadeStack>
+
       </Stack>
-      <Stack flex={1} spacing={2} width="100%">
-        <Text variant="h4">{`${TOKEN_SYMBOL_BY_ADDRESS[USDG_CONTRACT]} Overview`}</Text>
-        <Stack
-          border="1px solid"
-          borderColor="divider"
-          borderRadius={2}
-          direction={{ xs: "column", md: "row" }}
-        >
-          <Statistics />
-          <Chart />
+      <FadeStack type="opacity-in" duration={0.8}>
+        <Stack flex={1} spacing={2} width="100%">
+          <Text variant="h4">{`${TOKEN_SYMBOL_BY_ADDRESS[USDG_CONTRACT]} Overview`}</Text>
+          <Stack
+            border="1px solid"
+            borderColor="divider"
+            borderRadius={2}
+            direction={{ xs: "column", md: "row" }}
+          >
+            <Statistics />
+            <Chart />
+          </Stack>
         </Stack>
-      </Stack>
+      </FadeStack>
     </Stack>
   );
 }
