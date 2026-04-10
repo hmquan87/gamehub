@@ -6,7 +6,10 @@ import { formatNumber } from "@/utils";
 import Link from "@/components/Link";
 import FireGIF from "public/images/home/fire.gif";
 import FadeStack from "@/components/FadeStack";
-import { GAMES_PATH } from "@/constant/paths";
+import { GAME_DETAIL_PATH, GAMES_PATH } from "@/constant/paths";
+import { DATA_GAMES } from "../Games/ItemList";
+import StringFormat from "string-format";
+
 
 type GamePartnersProps = {};
 
@@ -64,10 +67,10 @@ const GamePartners = (props: GamePartnersProps) => {
             }}
             gap={2}
           >
-            {DATA.map((item) => (
-              <Link href={item.href} target="_blank" key={item.name}>
+            {DATA_GAMES && DATA_GAMES.length > 0 && DATA_GAMES.map((item) => (
+              <Link href={StringFormat(GAME_DETAIL_PATH, { slug: item.slug })} target="_blank" key={item.name}>
                 <Image
-                  src="https://assets.gam3s.gg/small_best_adventure_games_a5026da1a4.jpg"
+                  src={item.logo}
                   aspectRatio={500 / 281}
                   size="100%"
                   sizes="200px"
