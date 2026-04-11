@@ -27,8 +27,8 @@ export default async function Home() {
       {/* <SliderGame /> */}
       <Overview />
       <FeaturesSection />
-      <TrustedBy />
-      <GamePartners />
+      {/* <TrustedBy />
+      <GamePartners /> */}
       <Subscribe />
       <FAQs />
     </Box>
